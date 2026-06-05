@@ -81,7 +81,7 @@ body {
 
 /* Hero */
 .hero {
-  background: linear-gradient(rgba(34, 34, 34, 0.75), rgba(34, 34, 34, 0.75)), url('../banner.png') center / cover no-repeat;
+  background: linear-gradient(rgba(34, 34, 34, 0.75), rgba(34, 34, 34, 0.75)), url('banner.png') center / cover no-repeat;
   color: #FFFFFF;
   padding: 60px 0;
   text-align: center;
