@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>SPK - Rekomendasi Hosting Minecraft</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Figtree:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body data-page="index">
+
+<nav class="navbar">
+  <div class="container">
+    <a href="index.html" class="logo">SPK <span>Hosting Minecraft</span></a>
+    <button class="menu-toggle" id="menuToggle">&gt;</button>
+    <ul class="nav-links" id="navLinks">
+      <li><a href="index.html" data-page="index">Beranda</a></li>
+      <li><a href="dataset.html" data-page="dataset">Dataset</a></li>
+      <li><a href="metode.html" data-page="metode">Metode TOPSIS</a></li>
+      <li><a href="hasil.html" data-page="hasil">Hasil</a></li>
+      <li><a href="kesimpulan.html" data-page="kesimpulan">Kesimpulan</a></li>
+    </ul>
+  </div>
+</nav>
+
+<section class="hero">
+  <div class="container">
+    <h1>Rekomendasi Platform Hosting Server Minecraft</h1>
+    <p>Menentukan hosting server Minecraft terbaik menggunakan metode TOPSIS berdasarkan 6 kriteria: harga, RAM, storage, slot pemain, uptime, dan vCPU.</p>
+    <div class="subtitle">Sistem Pendukung Keputusan - 2026</div>
+
+    <div class="stats">
+      <div class="stat-card">
+        <span class="number">72</span>
+        <span class="label">Alternatif</span>
+      </div>
+      <div class="stat-card">
+        <span class="number">22</span>
+        <span class="label">Platform</span>
+      </div>
+      <div class="stat-card">
+        <span class="number">6</span>
+        <span class="label">Kriteria</span>
+      </div>
+      <div class="stat-card">
+        <span class="number">$0 - $80</span>
+        <span class="label">Rentang Harga</span>
+      </div>
+      <div class="stat-card">
+        <span class="number">1 - 32 GB</span>
+        <span class="label">Rentang RAM</span>
+      </div>
+      <div class="stat-card">
+        <span class="number">78 - 99.9%</span>
+        <span class="label">Rentang Uptime</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section">
+  <div class="container">
+    <h2 class="section-title">Studi Kasus</h2>
+    <p class="section-subtitle">Memilih hosting server Minecraft itu ribet! Ada banyak penyedia dengan harga, spesifikasi, dan kualitas yang berbeda-beda. Biar gak pusing, kita pakai TOPSIS!</p>
+
+    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 20px;">
+      <div class="card">
+        <div class="card-body">
+          <h3 class="card-title">Dataset</h3>
+          <p class="desc">72 tier dari 22 platform hosting: gratis maupun berbayar. Data diverifikasi dari website resmi dan artikel perbandingan pihak ketiga.</p>
+          <a href="dataset.html" class="btn btn-outline">Lihat Dataset</a>
+        </div>
+      </div>
+      <div class="card">
+        <div class="card-body">
+          <h3 class="card-title">Metode TOPSIS</h3>
+          <p class="desc">Technique for Order Preference by Similarity to Ideal Solution. Mencari alternatif terbaik berdasarkan jarak ke solusi ideal.</p>
+          <a href="metode.html" class="btn btn-outline">Pelajari TOPSIS</a>
+        </div>
+      </div>
+      <div class="card">
+        <div class="card-body">
+          <h3 class="card-title">Hasil Ranking</h3>
+          <p class="desc">Hostinger - Panel8 keluar sebagai juara dengan nilai preferensi V = 0.778. Lihat perankingan lengkap 72 alternatif.</p>
+          <a href="hasil.html" class="btn btn-outline">Lihat Hasil</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section" style="padding-top: 0;">
+  <div class="container">
+    <h2 class="section-title">Kriteria Penilaian</h2>
+    <div class="card">
+      <div class="card-body">
+        <div style="overflow-x: auto;">
+          <table>
+            <thead>
+              <tr>
+                <th>Kriteria</th>
+                <th>Jenis</th>
+                <th>Bobot</th>
+                <th>Keterangan</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr><td>Harga (USD/mo)</td><td>Cost</td><td>0.20</td><td>Makin murah makin baik</td></tr>
+              <tr><td>RAM (GB)</td><td>Benefit</td><td>0.20</td><td>Makin besar makin baik</td></tr>
+              <tr><td>Storage (GB)</td><td>Benefit</td><td>0.10</td><td>Makin besar makin baik</td></tr>
+              <tr><td>Slot Pemain</td><td>Benefit</td><td>0.10</td><td>Makin banyak makin baik</td></tr>
+              <tr><td>Uptime (%)</td><td>Benefit</td><td>0.25</td><td>Makin tinggi makin baik</td></tr>
+              <tr><td>vCPU</td><td>Benefit</td><td>0.15</td><td>Makin banyak makin baik</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer class="footer">
+  <div class="container">
+    Affandi Rahman Hakim - 23080960114
+  </div>
+</footer>
+
+<script src="js/data.js"></script>
+<script src="js/topsis.js"></script>
+<script src="js/main.js"></script>
+</body>
+</html>

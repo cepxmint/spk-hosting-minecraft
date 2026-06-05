@@ -1,0 +1,241 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Metode TOPSIS - SPK Hosting Minecraft</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Figtree:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/style.css">
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+</head>
+<body data-page="metode">
+
+<nav class="navbar">
+  <div class="container">
+    <a href="index.html" class="logo">SPK <span>Hosting Minecraft</span></a>
+    <button class="menu-toggle" id="menuToggle">&gt;</button>
+    <ul class="nav-links" id="navLinks">
+      <li><a href="index.html" data-page="index">Beranda</a></li>
+      <li><a href="dataset.html" data-page="dataset">Dataset</a></li>
+      <li><a href="metode.html" data-page="metode">Metode TOPSIS</a></li>
+      <li><a href="hasil.html" data-page="hasil">Hasil</a></li>
+      <li><a href="kesimpulan.html" data-page="kesimpulan">Kesimpulan</a></li>
+    </ul>
+  </div>
+</nav>
+
+<section class="section">
+  <div class="container">
+    <a href="index.html" class="back-link">Kembali ke Beranda</a>
+    <h1 class="section-title">Perhitungan TOPSIS</h1>
+    <p class="section-subtitle">Metode TOPSIS (Technique for Order Preference by Similarity to Ideal Solution) dipilih karena mudah dipahami, perhitungannya sederhana, dan sesuai untuk studi kasus pemilihan hosting dengan banyak alternatif dan kriteria.</p>
+
+    <div class="info-banner">
+      <strong>Alasan memilih TOPSIS:</strong> TOPSIS cocok untuk kasus ini karena dapat menangani 72 alternatif dengan 6 kriteria yang memiliki satuan berbeda (harga dalam USD, RAM dalam GB, uptime dalam persen). Metode ini memberikan hasil ranking yang objektif dan mudah diinterpretasikan.
+    </div>
+
+    <div class="steps" id="stepsContainer">
+      <!-- Steps will be rendered by JS -->
+    </div>
+  </div>
+</section>
+
+<footer class="footer">
+  <div class="container">
+    Affandi Rahman Hakim - 23080960114
+  </div>
+</footer>
+
+<script src="js/data.js"></script>
+<script src="js/topsis.js"></script>
+<script src="js/main.js"></script>
+<script>
+document.addEventListener("DOMContentLoaded", function () {
+  var result = runTopsisForMetode();
+    var steps = [
+      {
+        num: 1,
+        title: "Matriks Keputusan",
+        desc: "Data mentah 72 alternatif hosting dengan 6 kriteria. Harga bersifat <b>cost</b> (makin murah makin baik), sisanya <b>benefit</b> (makin besar makin baik).",
+        formula: "",
+        table: true,
+        cols: ["Alternatif", "Harga", "RAM", "Storage", "Slot", "Uptime", "vCPU"],
+        rows: HOSTING_DATA.map(function (r) {
+          var name = r.Platform + " - " + r.Tier;
+          return [
+            name,
+            "$" + r["Harga (USD/mo)"].toFixed(2),
+            r["RAM (GB)"] + " GB",
+            r["Storage (GB)"] + " GB",
+            r["Slot Pemain"],
+            r["Uptime (%)"] + "%",
+            r["vCPU"]
+          ];
+        })
+      },
+      {
+        num: 2,
+        title: "Normalisasi Matriks",
+        desc: "Menyamakan skala semua kriteria dengan rumus:",
+        formula: "r_{ij} = \\dfrac{x_{ij}}{\\sqrt{\\sum_{i=1}^{m} x_{ij}^2}}",
+        explain: "<b>Operator:</b> <var>x<sub>ij</sub></var> = nilai asli baris ke-i kolom ke-j (misal harga Hosting A = $10), &Sigma; = jumlah semua, &radic; = akar kuadrat, &divide; = pembagian.<br>Tiap nilai asli (x) dikuadratkan dulu satu per satu, lalu semua hasil kuadrat di kolom yang sama dijumlah (&Sigma;), lalu diakarkan (&radic;). Hasilnya jadi penyebut. Baru tiap x dibagi (&divide;) penyebut itu.<br><b>Contoh:</b> Kolom Harga punya angka $0, $2, $10, dst. Masing-masing dikuadratkan (0&sup2;=0, 2&sup2;=4, 10&sup2;=100...), dijumlah semua, diakarkan, dapet angka misal 42. Maka r untuk hosting $10 = 10 &divide; 42 = 0.238. Gitu terus untuk 72 hosting. Hasilnya semua kolom punya skala 0-1, ga ada yang dominan cuma karena satuannya beda.",
+        table: true,
+        cols: ["Alternatif", "Harga", "RAM", "Storage", "Slot", "Uptime", "vCPU"],
+        rows: HOSTING_DATA.map(function (r, i) {
+          var name = r.Platform + " - " + r.Tier;
+          return [
+            name,
+            result.R[i][0].toFixed(6),
+            result.R[i][1].toFixed(6),
+            result.R[i][2].toFixed(6),
+            result.R[i][3].toFixed(6),
+            result.R[i][4].toFixed(6),
+            result.R[i][5].toFixed(6)
+          ];
+        })
+      },
+      {
+        num: 3,
+        title: "Normalisasi Terbobot",
+        desc: "Mengalikan hasil normalisasi dengan bobot masing-masing kriteria:",
+        formula: "y_{ij} = w_j \\cdot r_{ij}",
+        explain: "<b>Operator:</b> <var>w<sub>j</sub></var> = bobot kriteria ke-j (angka pentingnya kriteria), &times; = perkalian, <var>r<sub>ij</sub></var> = hasil normalisasi dari Step 2.<br>Hasil normalisasi r<sub>ij</sub> dikalikan (&times;) dengan bobot w<sub>j</sub>. Bobotnya: Harga 0.20, RAM 0.20, Storage 0.10, Slot 0.10, Uptime 0.25, vCPU 0.15.<br><b>Contoh:</b> Misal r<sub>Harga</sub> suatu hosting = 0.05, maka y<sub>Harga</sub> = 0.20 &times; 0.05 = 0.01. Kriteria dengan bobot besar (Uptime 0.25) bakal lebih pengaruh di angka akhir.",
+        table: true,
+        cols: ["Alternatif", "Harga", "RAM", "Storage", "Slot", "Uptime", "vCPU"],
+        rows: HOSTING_DATA.map(function (r, i) {
+          var name = r.Platform + " - " + r.Tier;
+          return [
+            name,
+            result.Y[i][0].toFixed(6),
+            result.Y[i][1].toFixed(6),
+            result.Y[i][2].toFixed(6),
+            result.Y[i][3].toFixed(6),
+            result.Y[i][4].toFixed(6),
+            result.Y[i][5].toFixed(6)
+          ];
+        })
+      },
+      {
+        num: 4,
+        title: "Solusi Ideal Positif dan Negatif",
+        desc: "Menentukan nilai terbaik (A+) dan terburuk (A-) untuk setiap kriteria. Untuk kriteria <b>benefit</b> ambil nilai maksimum, untuk <b>cost</b> ambil nilai minimum.",
+        formula: "A_j^+ = \\begin{cases} \\max y_{ij} & \\text{jika benefit} \\\\ \\min y_{ij} & \\text{jika cost} \\end{cases} \\quad A_j^- = \\begin{cases} \\min y_{ij} & \\text{jika benefit} \\\\ \\max y_{ij} & \\text{jika cost} \\end{cases}",
+        explain: "<b>Operator:</b> max = nilai terbesar, min = nilai terkecil, benefit = makin besar makin baik, cost = makin kecil makin baik.<br>Dari 72 hosting, lihat satu per satu kolom y. Untuk kriteria <b>benefit</b> (RAM, Storage, Slot, Uptime, vCPU): A<sup>+</sup> ambil yang <b>terbesar</b> (max), A<sup>-</sup> ambil <b>terkecil</b> (min). Untuk <b>cost</b> (Harga): kebalik: A<sup>+</sup> ambil <b>terkecil</b> (min), A<sup>-</sup> ambil <b>terbesar</b> (max).<br><b>Contoh:</b> Di kolom Harga, hosting termurah $0 dipilih jadi A<sup>+</sup> (ideal), termahal jadi A<sup>-</sup> (terburuk). Di kolom Uptime, yang 99.99% jadi A<sup>+</sup>, yang terendah jadi A<sup>-</sup>. Hasilnya A<sup>+</sup> adalah kumpulan kriteria terbaik dari semua hosting (hosting impian).",
+        table: true,
+        cols: ["Solusi", "Harga", "RAM", "Storage", "Slot", "Uptime", "vCPU"],
+        rows: [
+          ["Positif (A+)", result.A_pos[0].toFixed(6), result.A_pos[1].toFixed(6), result.A_pos[2].toFixed(6), result.A_pos[3].toFixed(6), result.A_pos[4].toFixed(6), result.A_pos[5].toFixed(6)],
+          ["Negatif (A-)", result.A_neg[0].toFixed(6), result.A_neg[1].toFixed(6), result.A_neg[2].toFixed(6), result.A_neg[3].toFixed(6), result.A_neg[4].toFixed(6), result.A_neg[5].toFixed(6)]
+        ]
+      },
+      {
+        num: 5,
+        title: "Jarak Euclidean (D+ dan D-)",
+        desc: "Menghitung jarak setiap alternatif ke solusi ideal positif dan negatif.",
+        formula: "D_i^+ = \\sqrt{\\sum_{j=1}^{n} (y_{ij} - A_j^+)^2} \\quad D_i^- = \\sqrt{\\sum_{j=1}^{n} (y_{ij} - A_j^-)^2}",
+        explain: "<b>Operator:</b> <var>y<sub>ij</sub></var> = nilai terbobot, <var>A<sub>j</sub><sup>+</sup></var> = solusi ideal positif, (&minus;) = kurangi, (&sup2;) = kuadratkan, &Sigma; = jumlah, &radic; = akar kuadrat.<br>Setiap hosting dihitung jaraknya ke A<sup>+</sup> dan A<sup>-</sup>, kayak hitung jarak pythagoras. Caranya: untuk tiap kriteria, nilai y dikurangi (&minus;) nilai A, hasilnya dikuadratkan (&sup2;), semua dijumlah (&Sigma;), lalu diakarkan (&radic;).<br><b>Contoh:</b> Hosting A punya y=[0.01, 0.05, ...] dan A<sup>+</sup>=[0.001, 0.08, ...]. Maka (0.01-0.001)&sup2; + (0.05-0.08)&sup2; + ... = 0.004, lalu diakar = 0.063. Itu D<sup>+</sup> nya. Makin kecil D<sup>+</sup> berarti makin dekat ke hosting impian.",
+        table: true,
+        cols: ["Alternatif", "D+", "D-"],
+        rows: HOSTING_DATA.map(function (r, i) {
+          return [r.Platform + " - " + r.Tier, result.D_pos[i].toFixed(6), result.D_neg[i].toFixed(6)];
+        })
+      },
+      {
+        num: 6,
+        title: "Nilai Preferensi (V)",
+        desc: "Menghitung nilai preferensi setiap alternatif. Nilai V berkisar antara 0-1, makin mendekati 1 makin baik.",
+        formula: "V_i = \\dfrac{D_i^-}{D_i^+ + D_i^-}",
+        explain: "<b>Operator:</b> <var>D<sub>i</sub><sup>-</sup></var> = jarak ke solusi negatif, (&plus;) = tambah, (&divide;) = bagi.<br>Nilai V adalah skor akhir tiap hosting. Dihitung dengan D<sup>-</sup> dibagi (&divide;) jumlah (&plus;) D<sup>+</sup> dan D<sup>-</sup>. Hasilnya selalu antara 0 sampai 1.<br><b>Contoh:</b> Host A punya D<sup>+</sup>=0.1 dan D<sup>-</sup>=0.9, maka V = 0.9 &divide; (0.1 + 0.9) = 0.9. Artinya hosting ini 90% mendekati hosting impian. Makin dekat V ke 1, makin bagus.",
+        table: true,
+        cols: ["Alternatif", "D+", "D-", "V (Preferensi)"],
+        rows: HOSTING_DATA.map(function (r, i) {
+          return [r.Platform + " - " + r.Tier, result.D_pos[i].toFixed(6), result.D_neg[i].toFixed(6), result.V[i].toFixed(6)];
+        })
+      },
+      {
+        num: 7,
+        title: "Ranking",
+        desc: "Mengurutkan alternatif berdasarkan nilai V dari tertinggi ke terendah. Semakin tinggi V, semakin baik alternatif tersebut.",
+        formula: "",
+        explain: "Semua 72 hosting diurutkan dari nilai V terbesar ke terkecil. Peringkat 1 berarti hosting paling mendekati solusi ideal (paling direkomendasikan). Di tabel bawah ini cuma ditampilkan 10 besar.",
+        table: true,
+        cols: ["Ranking", "Alternatif", "V", "Keterangan"],
+        rows: result.ranked.slice(0, 10).map(function (r) {
+          return ["#" + r._rank, r.Platform + " - " + r.Tier, r._V.toFixed(6), r._rank === 1 ? "TERBAIK" : ""];
+        })
+      }
+    ];
+
+  var container = document.getElementById("stepsContainer");
+  steps.forEach(function (step) {
+    var div = document.createElement("div");
+    div.className = "step" + (step.num === 1 ? " open" : "");
+
+    var header = document.createElement("div");
+    header.className = "step-header";
+    header.innerHTML =
+      '<div class="step-number">' + step.num + '</div>' +
+      '<div class="step-title">' + step.title + '</div>' +
+      '<div class="step-toggle"></div>';
+
+    var body = document.createElement("div");
+    body.className = "step-body";
+    body.innerHTML = "<p>" + step.desc + "</p>";
+
+    if (step.formula) {
+      var box = document.createElement("div");
+      box.className = "formula-box";
+      box.innerHTML = '<div class="label">Rumus:</div><p>\\(' + step.formula + '\\)</p>';
+      body.appendChild(box);
+    }
+
+    if (step.explain) {
+      var expBox = document.createElement("div");
+      expBox.className = "explain-box";
+      expBox.innerHTML = '<div class="label">Penjelasan:</div><p>' + step.explain + '</p>';
+      body.appendChild(expBox);
+    }
+
+    if (step.table) {
+      var tblDiv = document.createElement("div");
+      tblDiv.className = "table-mini";
+      var html = '<div class="table-wrapper"><table><thead><tr>';
+      step.cols.forEach(function (c) { html += "<th>" + c + "</th>"; });
+      html += '</tr></thead><tbody>';
+      var maxPreview = 10;
+      var previewRows = step.rows.slice(0, maxPreview);
+      previewRows.forEach(function (row, idx) {
+        html += "<tr>";
+        row.forEach(function (cell) {
+          html += "<td>" + cell + "</td>";
+        });
+        html += "</tr>";
+      });
+      if (step.rows.length > maxPreview) {
+        html += '<tr><td colspan="' + step.cols.length + '" style="text-align:center;color:#222222;font-style:italic;">... dan ' + (step.rows.length - maxPreview) + ' alternatif lainnya</td></tr>';
+      }
+      html += '</tbody></table></div>';
+      tblDiv.innerHTML = html;
+      body.appendChild(tblDiv);
+    }
+
+    div.appendChild(header);
+    div.appendChild(body);
+    container.appendChild(div);
+  });
+
+  if (window.MathJax && MathJax.typesetPromise) {
+    MathJax.typesetPromise();
+  }
+
+  document.querySelectorAll(".step-header").forEach(function (h) {
+    h.addEventListener("click", function () {
+      this.parentElement.classList.toggle("open");
+    });
+  });
+});
+</script>
+</body>
+</html>

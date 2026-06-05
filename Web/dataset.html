@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Dataset - SPK Hosting Minecraft</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Figtree:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body data-page="dataset">
+
+<nav class="navbar">
+  <div class="container">
+    <a href="index.html" class="logo">SPK <span>Hosting Minecraft</span></a>
+    <button class="menu-toggle" id="menuToggle">&gt;</button>
+    <ul class="nav-links" id="navLinks">
+      <li><a href="index.html" data-page="index">Beranda</a></li>
+      <li><a href="dataset.html" data-page="dataset">Dataset</a></li>
+      <li><a href="metode.html" data-page="metode">Metode TOPSIS</a></li>
+      <li><a href="hasil.html" data-page="hasil">Hasil</a></li>
+      <li><a href="kesimpulan.html" data-page="kesimpulan">Kesimpulan</a></li>
+    </ul>
+  </div>
+</nav>
+
+<section class="section">
+  <div class="container">
+    <a href="index.html" class="back-link">Kembali ke Beranda</a>
+    <h1 class="section-title">Dataset Hosting Minecraft</h1>
+    <p class="section-subtitle">72 tier dari 22 platform hosting. Data diambil dari website resmi dan artikel perbandingan pihak ketiga (terverifikasi per Mei 2026).</p>
+
+    <div class="search-bar">
+      <input type="text" id="searchInput" placeholder="Cari platform atau tier...">
+    </div>
+
+    <div id="resultCount" style="font-size: 14px; color: #222222; margin-bottom: 12px;"></div>
+
+    <div class="table-wrapper" id="tableWrapper">
+      <table>
+        <thead>
+          <tr>
+            <th data-col="0" class="sorted">Platform <span class="sort-icon">&gt;</span></th>
+            <th data-col="1">Tier <span class="sort-icon">&gt;</span></th>
+            <th data-col="2">Harga <span class="sort-icon">&gt;</span></th>
+            <th data-col="3">RAM <span class="sort-icon">&gt;</span></th>
+            <th data-col="4">Storage <span class="sort-icon">&gt;</span></th>
+            <th data-col="5">Slot <span class="sort-icon">&gt;</span></th>
+            <th data-col="6">Uptime <span class="sort-icon">&gt;</span></th>
+            <th data-col="7">vCPU <span class="sort-icon">&gt;</span></th>
+            <th>Aksi</th>
+          </tr>
+        </thead>
+        <tbody id="tableBody"></tbody>
+      </table>
+    </div>
+  </div>
+</section>
+
+<footer class="footer">
+  <div class="container">
+    Affandi Rahman Hakim - 23080960114
+  </div>
+</footer>
+
+<script src="js/data.js"></script>
+<script src="js/topsis.js"></script>
+<script src="js/main.js"></script>
+</body>
+</html>

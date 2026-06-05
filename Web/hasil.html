@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Hasil - SPK Hosting Minecraft</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Figtree:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/style.css">
+  <script src="https://cdn.jsdelivr.net/npm/chart.js@4/dist/chart.umd.min.js"></script>
+</head>
+<body data-page="hasil">
+
+<nav class="navbar">
+  <div class="container">
+    <a href="index.html" class="logo">SPK <span>Hosting Minecraft</span></a>
+    <button class="menu-toggle" id="menuToggle">&gt;</button>
+    <ul class="nav-links" id="navLinks">
+      <li><a href="index.html" data-page="index">Beranda</a></li>
+      <li><a href="dataset.html" data-page="dataset">Dataset</a></li>
+      <li><a href="metode.html" data-page="metode">Metode TOPSIS</a></li>
+      <li><a href="hasil.html" data-page="hasil">Hasil</a></li>
+      <li><a href="kesimpulan.html" data-page="kesimpulan">Kesimpulan</a></li>
+    </ul>
+  </div>
+</nav>
+
+<section class="section">
+  <div class="container">
+    <a href="index.html" class="back-link">Kembali ke Beranda</a>
+    <h1 class="section-title">Hasil Ranking TOPSIS</h1>
+    <p class="section-subtitle">72 alternatif hosting Minecraft telah dihitung dan diranking menggunakan metode TOPSIS.</p>
+
+    <div id="resultContainer"></div>
+  </div>
+</section>
+
+<footer class="footer">
+  <div class="container">
+    Affandi Rahman Hakim - 23080960114
+  </div>
+</footer>
+
+<script src="js/data.js"></script>
+<script src="js/topsis.js"></script>
+<script src="js/main.js"></script>
+<script>
+document.addEventListener("DOMContentLoaded", function () {
+  var result = runTopsisForMetode();
+  var container = document.getElementById("resultContainer");
+
+  var best = result.ranked[0];
+  var html = '<div class="result-highlight">';
+  html += '<h2>Alternatif Terbaik</h2>';
+  html += '<div class="big">' + best.Platform + ' - ' + best.Tier + '</div>';
+  html += '<div class="sub">Nilai Preferensi V = ' + best._V.toFixed(6) + '</div>';
+  html += '<div class="sub" style="margin-top:8px;">$' + best["Harga (USD/mo)"].toFixed(2) + '/bulan - ' + best["RAM (GB)"] + ' GB RAM - ' + best["Storage (GB)"] + ' GB Storage</div>';
+  html += '</div>';
+  container.innerHTML = html;
+
+  var top10 = result.ranked.slice(0, 10);
+  var chartDiv = document.createElement("div");
+  chartDiv.className = "chart-container";
+  var canvas = document.createElement("canvas");
+  canvas.id = "top10Chart";
+  canvas.style.maxHeight = "400px";
+  chartDiv.appendChild(canvas);
+  container.appendChild(chartDiv);
+
+  new Chart(canvas, {
+    type: "bar",
+    data: {
+      labels: top10.map(function (r) { return r.Platform + " " + r.Tier; }),
+      datasets: [{
+        label: "Nilai Preferensi (V)",
+        data: top10.map(function (r) { return r._V; }),
+        backgroundColor: top10.map(function (r, i) { return i === 0 ? "#222222" : "#F2F2F2"; }),
+        borderColor: "#222222",
+        borderWidth: 1
+      }]
+    },
+    options: {
+      responsive: true,
+      indexAxis: "y",
+      plugins: {
+        legend: { display: false },
+        title: { display: true, text: "Top 10 Hosting Terbaik", color: "#222222", font: { size: 16 } }
+      },
+      scales: {
+        x: { beginAtZero: true, max: 1, title: { display: true, text: "Nilai V", color: "#222222" }, ticks: { color: "#222222" } },
+        y: { ticks: { color: "#222222", font: { size: 11 } } }
+      }
+    }
+  });
+
+  var fullTable = document.createElement("div");
+  fullTable.className = "table-wrapper";
+  fullTable.style.marginTop = "32px";
+  var thtml = '<table><thead><tr><th>Rank</th><th>Platform</th><th>Tier</th><th>Harga</th><th>RAM</th><th>Storage</th><th>Uptime</th><th>vCPU</th><th>Nilai V</th></tr></thead><tbody>';
+  result.ranked.forEach(function (r) {
+    var cls = r._rank === 1 ? ' class="rank-first"' : '';
+    thtml += '<tr' + cls + '>' +
+      '<td>#' + r._rank + '</td>' +
+      '<td>' + escHtml(r.Platform) + '</td>' +
+      '<td>' + escHtml(r.Tier) + '</td>' +
+      '<td>$' + r["Harga (USD/mo)"].toFixed(2) + '</td>' +
+      '<td>' + r["RAM (GB)"] + ' GB</td>' +
+      '<td>' + r["Storage (GB)"] + ' GB</td>' +
+      '<td>' + r["Uptime (%)"] + '%</td>' +
+      '<td>' + r["vCPU"] + '</td>' +
+      '<td><strong>' + r._V.toFixed(6) + '</strong></td>' +
+      '</tr>';
+  });
+  thtml += '</tbody></table>';
+  fullTable.innerHTML = thtml;
+  container.appendChild(fullTable);
+});
+</script>
+</body>
+</html>

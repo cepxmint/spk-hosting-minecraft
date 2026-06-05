@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Kesimpulan - SPK Hosting Minecraft</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Figtree:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body data-page="kesimpulan">
+
+<nav class="navbar">
+  <div class="container">
+    <a href="index.html" class="logo">SPK <span>Hosting Minecraft</span></a>
+    <button class="menu-toggle" id="menuToggle">&gt;</button>
+    <ul class="nav-links" id="navLinks">
+      <li><a href="index.html" data-page="index">Beranda</a></li>
+      <li><a href="dataset.html" data-page="dataset">Dataset</a></li>
+      <li><a href="metode.html" data-page="metode">Metode TOPSIS</a></li>
+      <li><a href="hasil.html" data-page="hasil">Hasil</a></li>
+      <li><a href="kesimpulan.html" data-page="kesimpulan">Kesimpulan</a></li>
+    </ul>
+  </div>
+</nav>
+
+<section class="section">
+  <div class="container">
+    <a href="index.html" class="back-link">Kembali ke Beranda</a>
+    <h1 class="section-title">Kesimpulan</h1>
+
+    <div class="card mb-24">
+      <div class="card-body">
+        <h3 class="card-title">Hasil Akhir</h3>
+        <p class="desc">
+          Berdasarkan perhitungan TOPSIS pada <strong>72 alternatif</strong> dari <strong>22 platform hosting</strong>
+          dengan 6 kriteria (Harga, RAM, Storage, Slot Pemain, Uptime, vCPU), diperoleh hasil. Metode TOPSIS
+          dipilih karena sederhana dan sesuai untuk menyelesaikan masalah pemilihan dengan banyak kriteria.
+        </p>
+
+        <div class="result-highlight">
+          <h2>Hostinger - Panel8</h2>
+          <div class="big">V = 0.778</div>
+          <div class="sub">$27.99/bulan - 32 GB RAM - 400 GB Storage - 8 vCPU</div>
+        </div>
+
+        <p class="desc">
+          Hostinger unggul telak karena menawarkan <strong>harga per GB RAM paling murah</strong>
+          dibanding kompetitor. Dengan $27.99/bulan, Anda mendapatkan 32 GB RAM + 400 GB storage
+          + 8 vCPU - spek yang biasanya $60+ di platform lain.
+        </p>
+      </div>
+    </div>
+
+    <div class="card mb-24">
+      <div class="card-body">
+        <h3 class="card-title">Top 5 Alternatif Terbaik</h3>
+        <div class="table-wrapper">
+          <table>
+            <thead>
+              <tr>
+                <th>Ranking</th>
+                <th>Alternatif</th>
+                <th>Harga</th>
+                <th>RAM</th>
+                <th>Nilai V</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr class="rank-first">
+                <td>#1</td>
+                <td>Hostinger - Panel8</td>
+                <td>$27.99</td>
+                <td>32 GB</td>
+                <td><strong>0.778334</strong></td>
+              </tr>
+              <tr>
+                <td>#2</td>
+                <td>Hostinger - Panel4</td>
+                <td>$13.99</td>
+                <td>16 GB</td>
+                <td>0.664783</td>
+              </tr>
+              <tr>
+                <td>#3</td>
+                <td>Hostinger - Panel2</td>
+                <td>$9.49</td>
+                <td>8 GB</td>
+                <td>0.635194</td>
+              </tr>
+              <tr>
+                <td>#4</td>
+                <td>ScalaCube - XL</td>
+                <td>$79.99</td>
+                <td>32 GB</td>
+                <td>0.602060</td>
+              </tr>
+              <tr>
+                <td>#5</td>
+                <td>Hostinger - Panel1</td>
+                <td>$6.99</td>
+                <td>4 GB</td>
+                <td>0.554900</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+
+    <div class="card mb-24">
+      <div class="card-body">
+        <h3 class="card-title">Analisis</h3>
+        <ul style="padding-left:20px;color:#222222;line-height:2;">
+          <li>Hostinger mendominasi top 5 dengan 4 dari 5 posisi berkat harga promo yang agresif</li>
+          <li>Hosting gratis (Aternos, Minefort, dll) ada di peringkat bawah karena RAM kecil (1-2 GB) dan uptime tidak terjamin</li>
+          <li>Bobot Uptime (0.25) dan Harga (0.20) menjadi faktor paling berpengaruh dalam perankingan</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="card mb-24">
+      <div class="card-body">
+        <h3 class="card-title">Catatan</h3>
+        <div class="info-banner" style="margin-bottom:0;">
+          Hostinger menawarkan promo diskon besar untuk pembelian tahunan. Harga reguler mungkin berbeda. Selalu cek website resmi untuk harga terkini. Data diambil per Mei 2026.
+        </div>
+      </div>
+    </div>
+
+    <div style="text-align:center;margin-top:32px;">
+      <a href="metode.html" class="btn btn-primary">Lihat metode</a>
+      <a href="dataset.html" class="btn btn-outline" style="margin-left:8px;">Lihat dataset</a>
+    </div>
+  </div>
+</section>
+
+<footer class="footer">
+  <div class="container">
+    Affandi Rahman Hakim - 23080960114
+  </div>
+</footer>
+
+<script src="js/data.js"></script>
+<script src="js/topsis.js"></script>
+<script src="js/main.js"></script>
+</body>
+</html>
