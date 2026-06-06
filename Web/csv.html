@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>CSV - SPK Hosting Minecraft</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Figtree:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/style.css">
+  <style>
+    .csv-section { margin-bottom: 32px; }
+    .csv-section .card-body { padding-bottom: 20px; }
+    .csv-section .step-label { font-size: 13px; color: #222222; font-weight: 500; margin-bottom: 4px; }
+    .csv-section .step-name { font-size: 22px; font-weight: 700; margin-bottom: 8px; }
+    .csv-section .step-desc { font-size: 14px; color: #222222; margin-bottom: 16px; }
+    .csv-actions { display: flex; gap: 8px; flex-wrap: wrap; margin-top: 16px; }
+    .csv-raw { display: none; margin-top: 16px; }
+    .csv-raw.open { display: block; }
+    .csv-raw pre {
+      background: #FFFFFF;
+      border: 1px solid #222222;
+      padding: 16px;
+      font-family: monospace;
+      font-size: 12px;
+      line-height: 1.4;
+      max-height: 400px;
+      overflow: auto;
+      white-space: pre;
+    }
+    .csv-section table { font-size: 13px; }
+    .csv-section td, .csv-section th { padding: 6px 10px; }
+  </style>
+</head>
+<body data-page="csv">
+
+<nav class="navbar">
+  <div class="container">
+    <a href="index.html" class="logo">SPK <span>Hosting Minecraft</span></a>
+    <button class="menu-toggle" id="menuToggle">&gt;</button>
+    <ul class="nav-links" id="navLinks">
+      <li><a href="index.html" data-page="index">Beranda</a></li>
+      <li><a href="dataset.html" data-page="dataset">Dataset</a></li>
+      <li><a href="metode.html" data-page="metode">Metode</a></li>
+      <li><a href="csv.html" data-page="csv">CSV</a></li>
+      <li><a href="hasil.html" data-page="hasil">Hasil</a></li>
+      <li><a href="legends.html" data-page="legends">Legends</a></li>
+    </ul>
+  </div>
+</nav>
+
+<section class="section">
+  <div class="container">
+    <a href="index.html" class="back-link">Kembali ke Beranda</a>
+    <h1 class="section-title">Output CSV Perhitungan TOPSIS</h1>
+    <p class="section-subtitle">Tiap tabel di bawah ini adalah hasil dari masing-masing langkah TOPSIS yang di-export dari script Python ke CSV.</p>
+
+    <div id="csvContainer"></div>
+  </div>
+</section>
+
+<footer class="footer">
+  <div class="container">
+    Affandi Rahman Hakim - 23080960114
+  </div>
+</footer>
+
+<script src="js/data.js"></script>
+<script src="js/topsis.js"></script>
+<script src="js/main.js"></script>
+<script>
+document.addEventListener("DOMContentLoaded", function () {
+  var result = TOPSIS.run(HOSTING_DATA);
+  var container = document.getElementById("csvContainer");
+
+  function esc(s) {
+    var d = document.createElement("div");
+    d.appendChild(document.createTextNode(s));
+    return d.innerHTML;
+  }
+
+  function toCSV(headers, rows) {
+    var lines = [];
+    lines.push(headers.join(","));
+    rows.forEach(function (row) {
+      lines.push(row.map(function (cell) {
+        if (typeof cell === "string" && (cell.indexOf(",") >= 0 || cell.indexOf('"') >= 0)) {
+          return '"' + cell.replace(/"/g, '""') + '"';
+        }
+        return cell;
+      }).join(","));
+    });
+    return lines.join("\n");
+  }
+
+  function downloadCSV(filename, csvContent) {
+    var blob = new Blob([csvContent], { type: "text/csv;charset=utf-8;" });
+    var url = URL.createObjectURL(blob);
+    var a = document.createElement("a");
+    a.href = url;
+    a.download = filename;
+    a.click();
+    URL.revokeObjectURL(url);
+  }
+
+  var steps = [
+    {
+      id: "01",
+      name: "Matriks Keputusan",
+      desc: "Data mentah 72 alternatif hosting dengan 6 kriteria (X_Kriteria).",
+      headers: ["Platform", "Tier", "Harga (USD/mo)", "RAM (GB)", "Storage (GB)", "Slot Pemain", "Uptime (%)", "vCPU"],
+      rows: HOSTING_DATA.map(function (r) {
+        return [r.Platform, r.Tier, r["Harga (USD/mo)"].toFixed(2), r["RAM (GB)"], r["Storage (GB)"], r["Slot Pemain"], r["Uptime (%)"], r["vCPU"]];
+      })
+    },
+    {
+      id: "02",
+      name: "Normalisasi",
+      desc: "Hasil normalisasi matriks keputusan (R_Kriteria). Semua nilai sudah dalam skala 0-1.",
+      headers: ["Platform", "Tier", "Harga (USD/mo)", "RAM (GB)", "Storage (GB)", "Slot Pemain", "Uptime (%)", "vCPU"],
+      rows: HOSTING_DATA.map(function (r, i) {
+        return [r.Platform, r.Tier].concat(result.R[i].map(function (v) { return v.toFixed(6); }));
+      })
+    },
+    {
+      id: "03",
+      name: "Normalisasi Terbobot",
+      desc: "Hasil normalisasi dikali bobot (Y_Kriteria). Bobot: Harga 0.20, RAM 0.20, Storage 0.10, Slot 0.10, Uptime 0.25, vCPU 0.15.",
+      headers: ["Platform", "Tier", "Harga (USD/mo)", "RAM (GB)", "Storage (GB)", "Slot Pemain", "Uptime (%)", "vCPU"],
+      rows: HOSTING_DATA.map(function (r, i) {
+        return [r.Platform, r.Tier].concat(result.Y[i].map(function (v) { return v.toFixed(6); }));
+      })
+    },
+    {
+      id: "04",
+      name: "Solusi Ideal",
+      desc: "Nilai A+ (hosting impian) dan A- (hosting terburuk) untuk tiap kriteria.",
+      headers: ["Kriteria", "Tipe", "A+", "A-"],
+      rows: TOPSIS.kriteria.map(function (k, j) {
+        return [k, TOPSIS.jenis[j], result.A_pos[j].toFixed(6), result.A_neg[j].toFixed(6)];
+      })
+    },
+    {
+      id: "05",
+      name: "Jarak Euclidean",
+      desc: "Jarak tiap hosting ke A+ (D+) dan A- (D-).",
+      headers: ["Platform", "Tier", "D+", "D-"],
+      rows: HOSTING_DATA.map(function (r, i) {
+        return [r.Platform, r.Tier, result.D_pos[i].toFixed(6), result.D_neg[i].toFixed(6)];
+      })
+    },
+    {
+      id: "06",
+      name: "Nilai Preferensi",
+      desc: "Skor akhir V = D- / (D+ + D-). Semakin mendekati 1 semakin baik.",
+      headers: ["Platform", "Tier", "V"],
+      rows: HOSTING_DATA.map(function (r, i) {
+        return [r.Platform, r.Tier, result.V[i].toFixed(6)];
+      })
+    },
+    {
+      id: "07",
+      name: "Ranking",
+      desc: "Semua hosting diurutkan dari V terbesar ke terkecil.",
+      headers: ["Rank", "Platform", "Tier", "V"],
+      rows: result.ranked.map(function (r) {
+        return [r._rank, r.Platform, r.Tier, r._V.toFixed(6)];
+      })
+    }
+  ];
+
+  steps.forEach(function (step) {
+    var section = document.createElement("div");
+    section.className = "card csv-section";
+    section.innerHTML = '<div class="card-body">' +
+      '<div class="step-label">Step ' + step.id + '</div>' +
+      '<div class="step-name">' + esc(step.name) + '</div>' +
+      '<div class="step-desc">' + esc(step.desc) + '</div>' +
+      '<div class="table-wrapper"><table><thead><tr>' +
+        step.headers.map(function (h) { return "<th>" + esc(h) + "</th>"; }).join("") +
+      '</tr></thead><tbody>' +
+        step.rows.map(function (row) {
+          return "<tr>" + row.map(function (cell) { return "<td>" + esc(cell.toString()) + "</td>"; }).join("") + "</tr>";
+        }).join("") +
+      '</tbody></table></div>' +
+      '<div class="csv-actions">' +
+        '<button class="btn btn-sm toggle-raw" data-step="' + step.id + '">Lihat dalam Mode Raw CSV</button>' +
+        '<button class="btn btn-sm download-csv" data-step="' + step.id + '">Download CSV</button>' +
+      '</div>' +
+      '<div class="csv-raw" id="raw-' + step.id + '"><pre></pre></div>' +
+    '</div>';
+    container.appendChild(section);
+
+    var csvContent = toCSV(step.headers, step.rows);
+    var pre = section.querySelector(".csv-raw pre");
+    pre.textContent = csvContent;
+
+    section.querySelector(".toggle-raw").addEventListener("click", function () {
+      var rawDiv = document.getElementById("raw-" + step.id);
+      rawDiv.classList.toggle("open");
+      this.textContent = rawDiv.classList.contains("open") ? "Sembunyikan Mode Raw CSV" : "Lihat dalam Mode Raw CSV";
+    });
+
+    section.querySelector(".download-csv").addEventListener("click", function () {
+      downloadCSV(step.id + "_" + step.name.replace(/\s+/g, "_") + ".csv", csvContent);
+    });
+  });
+});
+</script>
+</body>
+</html>

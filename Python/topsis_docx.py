@@ -160,12 +160,12 @@ for j in range(n_krit):
 doc.add_paragraph()
 doc.add_paragraph("Bobot yang digunakan:")
 for j, k in enumerate(kriteria):
-    doc.add_paragraph(f"  w{j+1} ({k}) = {bobot[j]}", style="List Bullet")
+    doc.add_paragraph(f"  Bobot_{{{k}}} = {bobot[j]}", style="List Bullet")
 
 # ---- 3. NORMALISASI ----
 doc.add_heading("3. Normalisasi Matriks", level=2)
 doc.add_paragraph("Rumus normalisasi:")
-add_eq(doc, r"r_{ij} = \frac{x_{ij}}{\sqrt{\sum_{j=1}^{n} x_{ij}^2}}")
+add_eq(doc, r"\text{R}_{\text{Kriteria}} = \frac{\text{X}_{\text{Kriteria}}}{\text{penyebut}_{\text{Kriteria}}}\quad\text{penyebut}_{\text{Kriteria}} = \sqrt{\sum \text{X}_{\text{Kriteria}}^2}")
 doc.add_paragraph("diterapkan untuk setiap kolom kriteria.")
 
 table3 = doc.add_table(rows=1 + n_alt, cols=2 + n_krit)
@@ -188,7 +188,7 @@ doc.add_paragraph()
 # ---- 4. NORMALISASI TERBOBOT ----
 doc.add_heading("4. Normalisasi Terbobot", level=2)
 doc.add_paragraph("Rumus:")
-add_eq(doc, r"y_{ij} = w_j \cdot r_{ij}")
+add_eq(doc, r"\text{Y}_{\text{Kriteria}} = \text{R}_{\text{Kriteria}} \times \text{Bobot}_{\text{Kriteria}}")
 
 table4 = doc.add_table(rows=1 + n_alt, cols=2 + n_krit)
 table4.style = "Light Grid Accent 1"
@@ -209,10 +209,10 @@ doc.add_paragraph()
 
 # ---- 5. SOLUSI IDEAL ----
 doc.add_heading("5. Solusi Ideal Positif dan Negatif", level=2)
-doc.add_paragraph("Solusi ideal positif:")
-add_eq(doc, r"A_j^+ = \{(\max y_{ij} \mid j \in \text{benefit}), (\min y_{ij} \mid j \in \text{cost})\}")
-doc.add_paragraph("Solusi ideal negatif:")
-add_eq(doc, r"A_j^- = \{(\min y_{ij} \mid j \in \text{benefit}), (\max y_{ij} \mid j \in \text{cost})\}")
+doc.add_paragraph("Solusi ideal positif (A+):")
+add_eq(doc, r"\text{A}_{+} = \{(\max \text{Y}_{\text{Kriteria}} \mid \text{benefit}), (\min \text{Y}_{\text{Kriteria}} \mid \text{cost})\}")
+doc.add_paragraph("Solusi ideal negatif (A-):")
+add_eq(doc, r"\text{A}_{-} = \{(\min \text{Y}_{\text{Kriteria}} \mid \text{benefit}), (\max \text{Y}_{\text{Kriteria}} \mid \text{cost})\}")
 
 table5 = doc.add_table(rows=3, cols=n_krit + 1)
 table5.style = "Light Grid Accent 1"
@@ -223,25 +223,25 @@ for j, k in enumerate(kriteria):
     hdr5[1 + j].text = k
 
 r5a = table5.rows[1].cells
-r5a[0].text = "Positif (A+)"
+r5a[0].text = "A+"
 for j in range(n_krit):
-    r5a[1 + j].text = f"{A_pos[j]:.6f}" if jenis[j] == "benefit" else f"{A_pos[j]:.6f} (cost)"
+    r5a[1 + j].text = f"{A_pos[j]:.6f}"
 
 r5b = table5.rows[2].cells
-r5b[0].text = "Negatif (A-)"
+r5b[0].text = "A-"
 for j in range(n_krit):
-    r5b[1 + j].text = f"{A_neg[j]:.6f}" if jenis[j] == "benefit" else f"{A_neg[j]:.6f} (cost)"
+    r5b[1 + j].text = f"{A_neg[j]:.6f}"
 
 doc.add_paragraph()
 
 # ---- 6. JARAK & PREFERENSI ----
 doc.add_heading("6. Jarak dan Nilai Preferensi", level=2)
-doc.add_paragraph("Rumus jarak positif:")
-add_eq(doc, r"D_i^+ = \sqrt{\sum_{j=1}^{n} (y_{ij} - A_j^+)^2}")
-doc.add_paragraph("Rumus jarak negatif:")
-add_eq(doc, r"D_i^- = \sqrt{\sum_{j=1}^{n} (y_{ij} - A_j^-)^2}")
-doc.add_paragraph("Rumus preferensi:")
-add_eq(doc, r"V_i = \frac{D_i^-}{D_i^+ + D_i^-}")
+doc.add_paragraph("Rumus jarak positif (D+):")
+add_eq(doc, r"\text{D}_{+} = \sqrt{\sum (\text{Y}_{\text{Kriteria}} - \text{A}_{+})^2}")
+doc.add_paragraph("Rumus jarak negatif (D-):")
+add_eq(doc, r"\text{D}_{-} = \sqrt{\sum (\text{Y}_{\text{Kriteria}} - \text{A}_{-})^2}")
+doc.add_paragraph("Rumus preferensi (V):")
+add_eq(doc, r"\text{V} = \frac{\text{D}_{-}}{\text{D}_{+} + \text{D}_{-}}")
 
 table6 = doc.add_table(rows=1 + n_alt, cols=5)
 table6.style = "Light Grid Accent 1"
@@ -251,7 +251,7 @@ hdr6[0].text = "No"
 hdr6[1].text = "Alternatif"
 hdr6[2].text = "D+"
 hdr6[3].text = "D-"
-hdr6[4].text = "V (Preferensi)"
+hdr6[4].text = "V"
 for i in range(n_alt):
     r = table6.rows[1 + i].cells
     r[0].text = str(i + 1)
@@ -293,7 +293,7 @@ p = doc.add_paragraph()
 p.add_run(
     f"Berdasarkan perhitungan TOPSIS dengan bobot {dict(zip(kriteria, bobot))}, "
     f"alternatif terbaik adalah {best['Platform']} - {best['Tier']} "
-    f"dengan nilai preferensi V = {best['Nilai Preferensi']:.6f}."
+    f"dengan nilai V = {best['Nilai Preferensi']:.6f}."
 )
 
 # Top 5
