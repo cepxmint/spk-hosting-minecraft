@@ -39,10 +39,127 @@
     <div class="steps" id="stepsContainer">
       <!-- Steps will be rendered by JS -->
     </div>
-    <div class="info-banner" style="margin-top:16px;">
-      <a href="Notes/Legends.md" style="color:#222222;">Lihat Legenda Simbol TOPSIS</a> — penjelasan tiap singkatan (R, Y, A+, D+, V, dll)
-    </div>
-  </div>
+    <div class="step" style="margin-top:16px;">
+      <div class="step-header">
+        <div class="step-number">L</div>
+        <div class="step-title">Legenda Simbol TOPSIS</div>
+        <div class="step-toggle"></div>
+      </div>
+      <div class="step-body">
+        <p><b>Step 1 - Matriks Keputusan</b></p>
+        <div class="table-mini">
+          <div class="table-wrapper">
+            <table>
+              <thead><tr><th>Simbol</th><th>Arti</th><th>Contoh</th></tr></thead>
+              <tbody>
+                <tr><td>X_Harga</td><td>Nilai asli harga dari data mentah</td><td>$10.00</td></tr>
+                <tr><td>X_RAM</td><td>Nilai asli RAM dari data mentah</td><td>4 GB</td></tr>
+                <tr><td>X_Storage</td><td>Nilai asli storage dari data mentah</td><td>40 GB</td></tr>
+                <tr><td>X_Slot</td><td>Nilai asli slot pemain dari data mentah</td><td>80</td></tr>
+                <tr><td>X_Uptime</td><td>Nilai asli uptime dari data mentah</td><td>99.9%</td></tr>
+                <tr><td>X_vCPU</td><td>Nilai asli vCPU dari data mentah</td><td>2</td></tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+        <p><b>Step 2 - Normalisasi</b></p>
+        <div class="table-mini">
+          <div class="table-wrapper">
+            <table>
+              <thead><tr><th>Simbol</th><th>Arti</th><th>Cara Dapet</th></tr></thead>
+              <tbody>
+                <tr><td>penyebut_Harga</td><td>Angka pembagi buat kolom Harga</td><td>X_Harga dikuadratkan, dijumlah, diakar</td></tr>
+                <tr><td>R_Harga</td><td>Harga setelah dinormalisasi</td><td>X_Harga / penyebut_Harga</td></tr>
+                <tr><td colspan="3" style="font-style:italic;">Sama untuk RAM, Storage, Slot, Uptime, vCPU</td></tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+        <p><b>Step 3 - Normalisasi Terbobot</b></p>
+        <div class="table-mini">
+          <div class="table-wrapper">
+            <table>
+              <thead><tr><th>Simbol</th><th>Arti</th><th>Cara Dapet</th></tr></thead>
+              <tbody>
+                <tr><td>Bobot_Harga</td><td>Tingkat kepentingan Harga</td><td>Ditentukan user: 0.20</td></tr>
+                <tr><td>Y_Harga</td><td>Harga setelah dikali bobot</td><td>R_Harga x Bobot_Harga</td></tr>
+                <tr><td colspan="3" style="font-style:italic;">Sama untuk RAM, Storage, Slot, Uptime, vCPU</td></tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+        <p><b>Step 4 - Solusi Ideal</b></p>
+        <div class="table-mini">
+          <div class="table-wrapper">
+            <table>
+              <thead><tr><th>Simbol</th><th>Arti</th><th>Cara Dapet</th></tr></thead>
+              <tbody>
+                <tr><td>A+</td><td>Hosting impian (nilai terbaik tiap kolom)</td><td>Benefit: ambil Y terbesar. Cost: ambil Y terkecil</td></tr>
+                <tr><td>A-</td><td>Hosting terburuk (nilai terjelek tiap kolom)</td><td>Benefit: ambil Y terkecil. Cost: ambil Y terbesar</td></tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+        <p><b>Step 5 - Jarak Euclidean</b></p>
+        <div class="table-mini">
+          <div class="table-wrapper">
+            <table>
+              <thead><tr><th>Simbol</th><th>Arti</th></tr></thead>
+              <tbody>
+                <tr><td>D+</td><td>Jarak hosting ke A+ (ke hosting impian) — makin kecil makin bagus</td></tr>
+                <tr><td>D-</td><td>Jarak hosting ke A- (dari hosting terburuk) — makin besar makin bagus</td></tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+        <p><b>Step 6 - Nilai Preferensi</b></p>
+        <div class="table-mini">
+          <div class="table-wrapper">
+            <table>
+              <thead><tr><th>Simbol</th><th>Arti</th><th>Cara Dapet</th></tr></thead>
+              <tbody>
+                <tr><td>V</td><td>Skor akhir tiap hosting (0-1)</td><td>D- / (D+ + D-)</td></tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+        <p><b>Step 7 - Ranking</b></p>
+        <div class="table-mini">
+          <div class="table-wrapper">
+            <table>
+              <thead><tr><th>Simbol</th><th>Arti</th><th>Cara Dapet</th></tr></thead>
+              <tbody>
+                <tr><td>Rank</td><td>Peringkat hosting</td><td>Diurutkan dari V terbesar ke terkecil</td></tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+        <p><b>Operator</b></p>
+        <div class="table-mini">
+          <div class="table-wrapper">
+            <table>
+              <thead><tr><th>Simbol</th><th>Maksud</th></tr></thead>
+              <tbody>
+                <tr><td>+</td><td>Ditambah</td></tr>
+                <tr><td>-</td><td>Dikurang</td></tr>
+                <tr><td>x</td><td>Dikali</td></tr>
+                <tr><td>/</td><td>Dibagi</td></tr>
+                <tr><td>kuadrat</td><td>Dikali angka itu sendiri</td></tr>
+                <tr><td>akar</td><td>Kebalikan dari kuadrat</td></tr>
+                <tr><td>jumlah</td><td>Semua ditambah</td></tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>   </div>
 </section>
 
 <footer class="footer">
