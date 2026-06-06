@@ -39,6 +39,9 @@
     <div class="steps" id="stepsContainer">
       <!-- Steps will be rendered by JS -->
     </div>
+    <div class="info-banner" style="margin-top:16px;">
+      <a href="Notes/Legends.md" style="color:#222222;">Lihat Legenda Simbol TOPSIS</a> — penjelasan tiap singkatan (R, Y, A+, D+, V, dll)
+    </div>
   </div>
 </section>
 
@@ -79,8 +82,8 @@ document.addEventListener("DOMContentLoaded", function () {
         num: 2,
         title: "Normalisasi Matriks",
         desc: "Menyamakan skala semua kriteria dengan rumus:",
-        formula: "r_{ij} = \\dfrac{x_{ij}}{\\sqrt{\\sum_{i=1}^{m} x_{ij}^2}}",
-        explain: "<b>Operator:</b> <var>x<sub>ij</sub></var> = nilai asli baris ke-i kolom ke-j (misal harga Hosting A = $10), &Sigma; = jumlah semua, &radic; = akar kuadrat, &divide; = pembagian.<br>Tiap nilai asli (x) dikuadratkan dulu satu per satu, lalu semua hasil kuadrat di kolom yang sama dijumlah (&Sigma;), lalu diakarkan (&radic;). Hasilnya jadi penyebut. Baru tiap x dibagi (&divide;) penyebut itu.<br><b>Contoh:</b> Kolom Harga punya angka $0, $2, $10, dst. Masing-masing dikuadratkan (0&sup2;=0, 2&sup2;=4, 10&sup2;=100...), dijumlah semua, diakarkan, dapet angka misal 42. Maka r untuk hosting $10 = 10 &divide; 42 = 0.238. Gitu terus untuk 72 hosting. Hasilnya semua kolom punya skala 0-1, ga ada yang dominan cuma karena satuannya beda.",
+        formula: "\\text{R}_{\\text{Kriteria}} = \\dfrac{\\text{X}_{\\text{Kriteria}}}{\\text{penyebut}_{\\text{Kriteria}}} \\quad \\text{penyebut}_{\\text{Kriteria}} = \\sqrt{\\sum_{b=1}^{m} \\text{X}_{\\text{Kriteria}}^2}",
+        explain: "<b>Operator:</b> <var>X<sub>Kriteria</sub></var> = nilai asli, kuadrat = dikali sendiri, jumlah = semua ditambah, akar = kebalikan kuadrat, &divide; = pembagian.<br>Tiap kolom dikerjakan sendiri. Misal kolom <b>Harga</b>: semua 72 X<sub>Harga</sub> dikuadratkan satu per satu, lalu dijumlah semua, lalu diakar. Hasilnya disebut <b>penyebut<sub>Harga</sub></b>. Baru tiap X<sub>Harga</sub> dibagi penyebut itu. Hasilnya disebut <b>R<sub>Harga</sub></b>.<br><b>Contoh:</b> Kolom Harga punya $0, $2, $10... Masing-masing dikuadratkan (0&sup2;=0, 2&sup2;=4, 10&sup2;=100...), dijumlah = 1764, diakar = 42. Maka R<sub>Harga</sub> untuk $10 = 10 &divide; 42 = 0.238. Lakuin hal yang sama buat RAM, Storage, Slot, Uptime, vCPU. Hasilnya semua R punya skala 0-1, ga ada yang dominan cuma karena satuannya beda.",
         table: true,
         cols: ["Alternatif", "Harga", "RAM", "Storage", "Slot", "Uptime", "vCPU"],
         rows: HOSTING_DATA.map(function (r, i) {
@@ -100,8 +103,8 @@ document.addEventListener("DOMContentLoaded", function () {
         num: 3,
         title: "Normalisasi Terbobot",
         desc: "Mengalikan hasil normalisasi dengan bobot masing-masing kriteria:",
-        formula: "y_{ij} = w_j \\cdot r_{ij}",
-        explain: "<b>Operator:</b> <var>w<sub>j</sub></var> = bobot kriteria ke-j (angka pentingnya kriteria), &times; = perkalian, <var>r<sub>ij</sub></var> = hasil normalisasi dari Step 2.<br>Hasil normalisasi r<sub>ij</sub> dikalikan (&times;) dengan bobot w<sub>j</sub>. Bobotnya: Harga 0.20, RAM 0.20, Storage 0.10, Slot 0.10, Uptime 0.25, vCPU 0.15.<br><b>Contoh:</b> Misal r<sub>Harga</sub> suatu hosting = 0.05, maka y<sub>Harga</sub> = 0.20 &times; 0.05 = 0.01. Kriteria dengan bobot besar (Uptime 0.25) bakal lebih pengaruh di angka akhir.",
+        formula: "\\text{Y}_{\\text{Kriteria}} = \\text{R}_{\\text{Kriteria}} \\times \\text{Bobot}_{\\text{Kriteria}}",
+        explain: "<b>Operator:</b> &times; = perkalian.<br>R<sub>Kriteria</sub> dari Step 2 dikalikan (&times;) dengan Bobot masing-masing. Bobotnya: Harga 0.20, RAM 0.20, Storage 0.10, Slot 0.10, Uptime 0.25, vCPU 0.15.<br><b>Contoh:</b> Misal R<sub>Harga</sub> suatu hosting = 0.05, maka Y<sub>Harga</sub> = 0.20 &times; 0.05 = 0.01. Kriteria dengan bobot besar (Uptime 0.25) bakal lebih pengaruh ke hasil akhir.",
         table: true,
         cols: ["Alternatif", "Harga", "RAM", "Storage", "Slot", "Uptime", "vCPU"],
         rows: HOSTING_DATA.map(function (r, i) {
@@ -121,8 +124,8 @@ document.addEventListener("DOMContentLoaded", function () {
         num: 4,
         title: "Solusi Ideal Positif dan Negatif",
         desc: "Menentukan nilai terbaik (A+) dan terburuk (A-) untuk setiap kriteria. Untuk kriteria <b>benefit</b> ambil nilai maksimum, untuk <b>cost</b> ambil nilai minimum.",
-        formula: "A_j^+ = \\begin{cases} \\max y_{ij} & \\text{jika benefit} \\\\ \\min y_{ij} & \\text{jika cost} \\end{cases} \\quad A_j^- = \\begin{cases} \\min y_{ij} & \\text{jika benefit} \\\\ \\max y_{ij} & \\text{jika cost} \\end{cases}",
-        explain: "<b>Operator:</b> max = nilai terbesar, min = nilai terkecil, benefit = makin besar makin baik, cost = makin kecil makin baik.<br>Dari 72 hosting, lihat satu per satu kolom y. Untuk kriteria <b>benefit</b> (RAM, Storage, Slot, Uptime, vCPU): A<sup>+</sup> ambil yang <b>terbesar</b> (max), A<sup>-</sup> ambil <b>terkecil</b> (min). Untuk <b>cost</b> (Harga): kebalik: A<sup>+</sup> ambil <b>terkecil</b> (min), A<sup>-</sup> ambil <b>terbesar</b> (max).<br><b>Contoh:</b> Di kolom Harga, hosting termurah $0 dipilih jadi A<sup>+</sup> (ideal), termahal jadi A<sup>-</sup> (terburuk). Di kolom Uptime, yang 99.99% jadi A<sup>+</sup>, yang terendah jadi A<sup>-</sup>. Hasilnya A<sup>+</sup> adalah kumpulan kriteria terbaik dari semua hosting (hosting impian).",
+        formula: "\\text{A}_{\\text{Kriteria}}^{+} = \\begin{cases} \\max \\text{Y}_{\\text{Kriteria}} & \\text{jika benefit} \\\\ \\min \\text{Y}_{\\text{Kriteria}} & \\text{jika cost} \\end{cases} \\quad \\text{A}_{\\text{Kriteria}}^{-} = \\begin{cases} \\min \\text{Y}_{\\text{Kriteria}} & \\text{jika benefit} \\\\ \\max \\text{Y}_{\\text{Kriteria}} & \\text{jika cost} \\end{cases}",
+        explain: "<b>Operator:</b> max = cari nilai terbesar, min = cari nilai terkecil, benefit = makin besar makin baik, cost = makin kecil makin baik.<br>Dari 72 hosting, lihat satu per satu kolom Y. Untuk kriteria <b>benefit</b> (RAM, Storage, Slot, Uptime, vCPU): A<sup>+</sup> ambil Y yang <b>terbesar</b>, A<sup>-</sup> ambil Y yang <b>terkecil</b>. Untuk <b>cost</b> (Harga): kebalik: A<sup>+</sup> ambil Y <b>terkecil</b>, A<sup>-</sup> ambil Y <b>terbesar</b>.<br><b>Contoh:</b> Di kolom Harga, Y termurah dipilih jadi A<sup>+</sup> (hosting impian), termahal jadi A<sup>-</sup> (hosting terburuk). Di kolom Uptime, Y tertinggi jadi A<sup>+</sup>, terendah jadi A<sup>-</sup>. Hasilnya A<sup>+</sup> adalah gabungan kriteria terbaik dari semua hosting.",
         table: true,
         cols: ["Solusi", "Harga", "RAM", "Storage", "Slot", "Uptime", "vCPU"],
         rows: [
@@ -134,8 +137,8 @@ document.addEventListener("DOMContentLoaded", function () {
         num: 5,
         title: "Jarak Euclidean (D+ dan D-)",
         desc: "Menghitung jarak setiap alternatif ke solusi ideal positif dan negatif.",
-        formula: "D_i^+ = \\sqrt{\\sum_{j=1}^{n} (y_{ij} - A_j^+)^2} \\quad D_i^- = \\sqrt{\\sum_{j=1}^{n} (y_{ij} - A_j^-)^2}",
-        explain: "<b>Operator:</b> <var>y<sub>ij</sub></var> = nilai terbobot, <var>A<sub>j</sub><sup>+</sup></var> = solusi ideal positif, (&minus;) = kurangi, (&sup2;) = kuadratkan, &Sigma; = jumlah, &radic; = akar kuadrat.<br>Setiap hosting dihitung jaraknya ke A<sup>+</sup> dan A<sup>-</sup>, kayak hitung jarak pythagoras. Caranya: untuk tiap kriteria, nilai y dikurangi (&minus;) nilai A, hasilnya dikuadratkan (&sup2;), semua dijumlah (&Sigma;), lalu diakarkan (&radic;).<br><b>Contoh:</b> Hosting A punya y=[0.01, 0.05, ...] dan A<sup>+</sup>=[0.001, 0.08, ...]. Maka (0.01-0.001)&sup2; + (0.05-0.08)&sup2; + ... = 0.004, lalu diakar = 0.063. Itu D<sup>+</sup> nya. Makin kecil D<sup>+</sup> berarti makin dekat ke hosting impian.",
+        formula: "\\text{D}_{i}^{+} = \\sqrt{\\sum (\\text{Y}_{i,\\text{Kriteria}} - \\text{A}_{\\text{Kriteria}}^{+})^{2}} \\quad \\text{D}_{i}^{-} = \\sqrt{\\sum (\\text{Y}_{i,\\text{Kriteria}} - \\text{A}_{\\text{Kriteria}}^{-})^{2}}",
+        explain: "<b>Operator:</b> &minus; = kurangi, (&sup2;) = kuadratkan, jumlah = semua ditambah, akar = kebalikan kuadrat.<br>Setiap hosting dihitung jaraknya ke A<sup>+</sup> dan A<sup>-</sup>, kayak hitung jarak pythagoras. Caranya: untuk tiap kriteria, nilai Y dikurangi (&minus;) nilai A (bisa A<sup>+</sup> atau A<sup>-</sup>), hasilnya dikuadratkan (&sup2;), semua dijumlah, lalu diakarkan.<br><b>Contoh:</b> Hosting A punya Y<sub>Harga</sub>=0.01, Y<sub>RAM</sub>=0.05... dan A<sup>+</sup> punya 0.001, 0.08... Maka (0.01-0.001)&sup2; + (0.05-0.08)&sup2; + ... = 0.004, lalu diakar = 0.063. Itu D<sup>+</sup> nya. Makin kecil D<sup>+</sup> berarti makin dekat ke hosting impian.",
         table: true,
         cols: ["Alternatif", "D+", "D-"],
         rows: HOSTING_DATA.map(function (r, i) {
