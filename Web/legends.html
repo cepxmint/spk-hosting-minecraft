@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Legenda TOPSIS - SPK Hosting Minecraft</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Figtree:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body data-page="legends">
+
+<nav class="navbar">
+  <div class="container">
+    <a href="index.html" class="logo">SPK <span>Hosting Minecraft</span></a>
+    <button class="menu-toggle" id="menuToggle">&gt;</button>
+    <ul class="nav-links" id="navLinks">
+      <li><a href="index.html" data-page="index">Beranda</a></li>
+      <li><a href="dataset.html" data-page="dataset">Dataset</a></li>
+      <li><a href="metode.html" data-page="metode">Metode TOPSIS</a></li>
+      <li><a href="hasil.html" data-page="hasil">Hasil</a></li>
+      <li><a href="kesimpulan.html" data-page="kesimpulan">Kesimpulan</a></li>
+      <li><a href="legends.html" data-page="legends">Legends</a></li>
+    </ul>
+  </div>
+</nav>
+
+<section class="section">
+  <div class="container">
+    <a href="metode.html" class="back-link">Kembali ke Metode</a>
+    <h1 class="section-title">Legenda Simbol TOPSIS</h1>
+    <p class="section-subtitle">Penjelasan tiap singkatan dan operator yang dipakai dalam perhitungan TOPSIS.</p>
+
+    <p><b>Step 1 - Matriks Keputusan</b></p>
+    <div class="table-mini">
+      <div class="table-wrapper">
+        <table>
+          <thead><tr><th>Simbol</th><th>Arti</th><th>Contoh</th></tr></thead>
+          <tbody>
+            <tr><td>X_Harga</td><td>Nilai asli harga dari data mentah</td><td>$10.00</td></tr>
+            <tr><td>X_RAM</td><td>Nilai asli RAM dari data mentah</td><td>4 GB</td></tr>
+            <tr><td>X_Storage</td><td>Nilai asli storage dari data mentah</td><td>40 GB</td></tr>
+            <tr><td>X_Slot</td><td>Nilai asli slot pemain dari data mentah</td><td>80</td></tr>
+            <tr><td>X_Uptime</td><td>Nilai asli uptime dari data mentah</td><td>99.9%</td></tr>
+            <tr><td>X_vCPU</td><td>Nilai asli vCPU dari data mentah</td><td>2</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <p><b>Step 2 - Normalisasi</b></p>
+    <div class="table-mini">
+      <div class="table-wrapper">
+        <table>
+          <thead><tr><th>Simbol</th><th>Arti</th><th>Cara Dapet</th></tr></thead>
+          <tbody>
+            <tr><td>penyebut_Kriteria</td><td>Angka pembagi buat tiap kolom</td><td>X dikuadratkan, dijumlah, diakar</td></tr>
+            <tr><td>R_Kriteria</td><td>Nilai setelah dinormalisasi</td><td>X_Kriteria / penyebut_Kriteria</td></tr>
+            <tr><td colspan="3" style="font-style:italic;">Contoh: R_Harga = X_Harga / penyebut_Harga. Lakuin buat semua 6 kriteria.</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <p><b>Step 3 - Normalisasi Terbobot</b></p>
+    <div class="table-mini">
+      <div class="table-wrapper">
+        <table>
+          <thead><tr><th>Simbol</th><th>Arti</th><th>Cara Dapet</th></tr></thead>
+          <tbody>
+            <tr><td>Bobot_Kriteria</td><td>Tingkat kepentingan tiap kriteria</td><td>Ditentukan user</td></tr>
+            <tr><td>Y_Kriteria</td><td>Nilai setelah dikali bobot</td><td>R_Kriteria x Bobot_Kriteria</td></tr>
+            <tr><td colspan="3" style="font-style:italic;">Bobot: Harga 0.20, RAM 0.20, Storage 0.10, Slot 0.10, Uptime 0.25, vCPU 0.15</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <p><b>Step 4 - Solusi Ideal</b></p>
+    <div class="table-mini">
+      <div class="table-wrapper">
+        <table>
+          <thead><tr><th>Simbol</th><th>Arti</th><th>Cara Dapet</th></tr></thead>
+          <tbody>
+            <tr><td>A+</td><td>Hosting impian (nilai terbaik tiap kolom)</td><td>Benefit: ambil Y terbesar. Cost: ambil Y terkecil</td></tr>
+            <tr><td>A-</td><td>Hosting terburuk (nilai terjelek tiap kolom)</td><td>Benefit: ambil Y terkecil. Cost: ambil Y terbesar</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <p><b>Step 5 - Jarak Euclidean</b></p>
+    <div class="table-mini">
+      <div class="table-wrapper">
+        <table>
+          <thead><tr><th>Simbol</th><th>Arti</th></tr></thead>
+          <tbody>
+            <tr><td>D+</td><td>Jarak hosting ke A+ (hosting impian). Makin kecil makin bagus.</td></tr>
+            <tr><td>D-</td><td>Jarak hosting dari A- (hosting terburuk). Makin besar makin bagus.</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <p><b>Step 6 - Nilai Preferensi</b></p>
+    <div class="table-mini">
+      <div class="table-wrapper">
+        <table>
+          <thead><tr><th>Simbol</th><th>Arti</th><th>Cara Dapet</th></tr></thead>
+          <tbody>
+            <tr><td>V</td><td>Skor akhir tiap hosting (0-1)</td><td>D- / (D+ + D-)</td></tr>
+            <tr><td colspan="3" style="font-style:italic;">Makin mendekati 1, makin bagus.</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <p><b>Step 7 - Ranking</b></p>
+    <div class="table-mini">
+      <div class="table-wrapper">
+        <table>
+          <thead><tr><th>Simbol</th><th>Arti</th><th>Cara Dapet</th></tr></thead>
+          <tbody>
+            <tr><td>Rank</td><td>Peringkat hosting</td><td>Diurutkan dari V terbesar ke terkecil</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <p><b>Operator</b></p>
+    <div class="table-mini">
+      <div class="table-wrapper">
+        <table>
+          <thead><tr><th>Simbol</th><th>Maksud</th></tr></thead>
+          <tbody>
+            <tr><td>+</td><td>Ditambah</td></tr>
+            <tr><td>-</td><td>Dikurang</td></tr>
+            <tr><td>x</td><td>Dikali</td></tr>
+            <tr><td>/</td><td>Dibagi</td></tr>
+            <tr><td>kuadrat</td><td>Dikali angka itu sendiri</td></tr>
+            <tr><td>akar</td><td>Kebalikan dari kuadrat</td></tr>
+            <tr><td>jumlah</td><td>Semua ditambah</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer class="footer">
+  <div class="container">
+    Affandi Rahman Hakim - 23080960114
+  </div>
+</footer>
+
+<script src="js/main.js"></script>
+</body>
+</html>

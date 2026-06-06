@@ -1,0 +1,662 @@
+--- Halaman 1 ---
+METODE PENDUKUNG KEPUTUSAN
+AHP (Analytic Hierarchy Process)
+oleh Wenty Dwi Yuniarti
+Referensi:
+Saaty, T.L., 2008, Decision Making with The Analytic Hierarchy Process, Int. J. Services Sciences, [Online] 1 (1), tersedia
+di DOI:10.1108/JMTM-03-2014-0020.
+Velmurugan, R., Selvamuthukumar, S., and Manavalan, R., 2011, Multi Criteria Decision Making to select method for
+the preparation of nanoparticles using an analytical hierarchy process, Phamazie 66: 836-842,
+doi:10.1691/ph.2011.1034.
+Wind, Y., & Saaty, T. L. (1980). Marketing Applications of the Analytic Hierarchy Process. Management Science, 26(7),
+641–658. doi:10.1287/mnsc.26.7.641
+Keputusan melibatkan banyak hal tak berwujud (intangibles). Pengambilan keputusan
+dengan pendekatan sains matematika saat ini adalah dalam rangka memperoleh
+keputusan yang lebih baik, transparan di semua aspeknya. Menurut (Saaty, 2008), AHP
+adalah suatu teori pengukuran melalui perbandingan berpasangan dan bergantung pada
+penilaian para ahli untuk mendapatkan skala prioritas. Skala ini yang akan mengukur hal-
+hal yang tidak berwujud secara relative.
+Prosedur AHP meliputi:
+1. Mendefinisikan permasalahan
+2. Mengembangkan suatu model hierarki
+3. Menyusun/mengkonstruksi suatu matrik perbandingan berpasangan
+4. Memberikan penilaian pada perbandingan berpasangan
+5. Mensintesis matrik perbandingan berpasangan
+6. Memberikan verifikasi konsistensi
+7. Melakukan langkah 3-6 untuk semua level dalam model hierarki
+8. Menentukan ranking prioritas keseluruhan
+
+
+--- Halaman 2 ---
+A. Studi kasus: memilih metode untuk penyiapan nanopartikel
+NDDS (Novel Drug Delivery Systems) adalah metode formulasi dalam farmasi yang dapat
+dilakukan dengan berbagai cara, salah satunya dengan nanopartikel yang dilakukan dengan
+M1-polymer precipitation, M2-interfacial polymer deposition, M3-complex coacervation,
+M4-crosslinking, M5-emulsion solvent diffusion, M6-homogeniziation dan M7-
+polymerization technique.
+Banyak parameter yang perlu diperhatikan dalam memiliki metode terbaik penyiapan
+nanopartikel.
+Perhatikan diagram penggambaran permasalahan berikut ini:
+Secara umum AHP terdiri dari 3 prinsip utama, yaitu hierarchy framework, priority
+analysis dan consistency verification (Velmurugan, 2011).
+
+
+--- Halaman 3 ---
+Penentuan prioritas dengan AHP:
+1. Membentuk matrik perbandingan berpasangan pada tiap hierarki dengan skala
+perbandingan berpasangan berikut (Velmurugan, 2011)(Windi, Y & Saaty, 1980).
+Intensity of Importance Definition Explanation
+1 Equal value Two requirements are of equal value
+3 Slightly more value Experience slightly favors one requirement over
+another
+5 Essential or strong value Experience strongly favors one requirement over
+another
+7 Very strong value A requirement is strongly favored and its dominance
+is demonstrated in practice
+9 Extreme value The evidence favoring one over another is of the
+highest possible order of affirmation
+2,4,6,8 Intermediate values between two When compromise is needed
+adjacent judgements
+Reciprocals Reciprocals for inverse comparison
+Menentukan matrik perbandingan berpasangan itu merupakan tahap prioritas sintesis,
+setiap matrik perbandingan dikelola dengan metode eigenvector.
+Matrik perbandingan berpasangan kesatu dengan ukuran n x n, dengan n adalah jumlah
+kriteria.
+Goal PI OS FE SU TI
+Process Information (PI) 1 3 5 3 5
+Operation Skill (OS) 1/3 1 3 1 3
+Feasibility (FE) 1/5 1/3 1 1/3 3
+Supplier (SU) 1/3 1 3 1 3
+Technical Information (TI) 1/5 1/3 1/3 1/3 1
+Total Column 2.067 5.667 10.333 6.333 15
+Misal jika PI lebih penting dengan kuat (strongly) atau esensial dibandingkan FE dengan
+skor 5. Reciprocal secara otomatis diberikan pada perbandingan komparasinya (FE ke PI
+adalah 1/5).
+2. Menghitung Priority Vector. Untuk menghitung vector prioritas, metode the average of
+normalized column (ANC) digunakan. Caranya, elemen tiap kolom dibagi jumlah kolom dan
+hasil disetiap baris dijumlahkan, dibagi jumlah elemen dalam baris (n). Ini adalah proses
+pererataan terhadap kolom ternormalisasi. Hasil sebagai berikut.
+
+
+--- Halaman 4 ---
+Priority
+Goal PI OS FE SU TI Total Baris
+Vector
+PI 1: 2.067= 3: 0.405 0.529 0.333 2.281 0.456
+0.484 5.667=
+0.529
+OS 0.161 0.176 0.243 0.176 0.2 0.957 0.191
+FE 0.097 0.059 0.081 0.059 0.2 0.496 0.099
+SU 0.161 0.176 0.243 0.176 0.2 0.957 0.191
+TI 0.097 0.059 0.027 0.059 0.067 0.308 0.062
+1.000
+Secara matematik, prioritas vector dihitung dengan formula berikut:
+
+        w_i = (1/n) * sum_j (a_ij / sum_i a_ij),  i,j = 1,2,...,n
+
+Sebagai contoh adalah perhitungan vector prioritas,
+Pertama, sum_i a_ij, dimana: 1 + 1/3 + 1/5 + 1/3 + 1/5 = 2.067
+Kedua, a_ij / sum_j a_ij, dimana: 1 / 2.067 = 0.484
+Ketiga, sum_j (a_ij / sum_i a_ij), dimana: 0.484 + 0.529 + 0.405 + 0.529 + 0.333 = 2.281
+dan akhirnya, penjumlahan tersebut dibagi jumlah elemen (n=5), dimana: 2.281/5 = 0.456
+3. Selanjutnya, melakukan verifikasi konsistensi
+Ketika perbandingan ditetapkan pakar, bisa saja terjadi inkonsistensi. Untuk memastikan
+ahli konsisten, operasi akhir yang disebut verifikasi konsistensi (ini merupakan fitur yang
+menguntungkan di AHP) dengan menghitung consistency ratio. Konsistensi ditentukan
+oleh CR atau Consistency Ratio, yaitu rasio consistency index (CI) terhadap random index
+(RI) untuk matrik terurut sama. Untuk menghitung CR, ada 3 langkah.
+Pertama, hitung Eigenvalue (lambda_max), caranya, kalikan nilai priority vector atau eigen vector
+dengan matrik pakar sehingga diperoleh vector baru. Contoh sebagai berikut:
+New Vector
+1 3 5 3 5 2.409
+1/3 1 3 1 3 1.017
++ + + +
+0.456 1/5 1/3 1 1/3 3 = 0.503
+0.191 0.099 0.191 0.062
+1/3 1 3 1 3 1.017
+1/5 1/3 1/3 1/3 1 0.314
+
+
+--- Halaman 5 ---
+Contoh:
+0.456(1) + 0.191(3) + 0.099(5) + 0.191(3) + 0.062(5) = 0.456+0.573+0.495+0.573+0.31
+=2.409
+Selanjutnya bagi semua elemen dari matrik jumlah terbobot atau new vector dengan
+elemen priority vector yang bersesuaian, sebagai berikut:
+2.409/0.456 = 5.279
+1.017/0.191 = 5.312
+0.503/0.099 = 5.075
+1.017/0.191 = 5.312
+0.314/0.062 = 5.089
+Perhitungan rerata dari nilai tersebut diperoleh:
+(lambda_max) = (5.279 + 5.312 + 5.075 + 5.312 + 5.089) / 5 = 5.213
+
+Kedua, hitung consistency index (CI):
+CI = (lambda_max - n) / (n - 1)
+Dimana n adalah ukuran matrix.
+CI = (5.213 - 5) / (5 - 1) = 0.213 / 4 = 0.053
+
+Ketiga, akhirnya hitung consistency ratio (CR) dengan formula:
+CR = CI / RI
+Pilih nilai random index (RI) yang tepat, seperti acuan tabel berikut:
+
+    n      1    2    3    4    5    6    7    8    9    10   11   12
+    RI     0    0   0.58 0.9  1.12 1.24 1.32 1.41 1.45 1.49 1.51 1.58
+
+RI untuk ukuran matriks n = 5 adalah 1.12. Sehingga diperoleh nilai CR:
+CR = CI / RI = 0.053 / 1.12 = 0.047 (dibulatkan menjadi 0.05).
+Jika nilai CR kurang dari 0.1 maka keputusan diterima. Jika CR > 0.1 keputusan inkonsisten.
+Untuk mendapatkan matrik konsisten, keputusan matrik harus direview dan diperbaiki.
+
+
+--- Halaman 6 ---
+Hasil perhitungan sebagai berikut:
+Goal PI OS FE SU TI Priority vector (PV) New Vector (NV) NV/PV
+PI 1 3 5 3 5 0.456 2.409 5.279
+OS 1/3 1 3 1 3 0.191 1.017 5.312
+FE 1/5 1/3 1 1/3 3 0.099 0.503 5.075
+SU 1/3 1 3 1 3 0.191 1.017 5.312
+TI 1/5 1/3 1/3 1/3 1 0.062 0.314 5.089
+Total 26.067
+Maximum eigenvalue 5.213
+4. Selanjutnya, lakukan langkah 1, 2, 3 untuk semua level dalam model hierarki, serta
+perbandingan berpasangan antar alternatif.
+Hasil sebagai berikut:
+Pertama membuat matrik perbandingan berpasangan, menghitung priority vector dan
+melakukan tes konsistensi untuk sub kriteria PI. Hasilnya Tabel 7.
+Tabel 7 Konsistensi tes untuk Sub Kriteria
+G/PI TD PC GF CO TR Priority vector (PV) New Vector (NV) NV/PV
+TD 1 3 5 3 5 0.415 2.283 5.501
+PC 1/3 1 3 3 3 0.251 1.392 5.551
+GF 1/5 1/3 1 1/3 1/5 0.056 0.295 5.259
+CO 1/3 1/3 3 1 1 0.127 0.669 5.251
+TR 1/3 1/3 5 1 1 0.151 0.781 5.176
+Total 26.739
+Maximum eigenvalue 5.348
+Kedua membuat matrik perbandingan berpasangan, menghitung priority vector dan
+melakukan tes konsistensi untuk sub kriteria OS. Hasilnya Tabel 8.
+Tabel 8 Konsistensi tes untuk Sub Kriteria
+G/OS TE KN Priority vector (PV) New Vector (NV) NV/PV
+TE 1 3 0.750 1.5 2.0
+KN 1/3 1 0.250 0.5 2.0
+Total 4.0
+Max Eigenvalue 2.0
+Ketiga membuat matrik perbandingan berpasangan, menghitung priority vector dan
+melakukan tes konsistensi untuk sub kriteria FE. Hasilnya Tabel 9.
+Tabel 9 Konsistensi tes untuk Sub Kriteria
+G/FE VE CO Priority vector (PV) New Vector (NV) NV/PV
+VE 1 3 0.750 1.5 2.0
+CO 1/3 1 0.250 0.5 2.0
+Total 4.0
+Max Eigenvalue 2.0
+
+
+--- Halaman 7 ---
+Keempat membuat matrik perbandingan berpasangan, menghitung priority vector dan
+melakukan tes konsistensi untuk sub kriteria TI. Hasilnya Tabel 10.
+Tabel 10 Konsistensi tes untuk Sub Kriteria
+G/TI LT MN Priority vector (PV) New Vector (NV) NV/PV
+LT 1 3 0.750 1.5 2.0
+MN 1/3 1 0.250 0.5 2.0
+Total 4.0
+Max Eigenvalue 2.0
+Kelima. Dalam kasus ini, alternatif tidak memiliki nilai tertentu. Oleh karena itu, pada
+alternatif harus diberikan preferensi/rating kecocokan oleh judgment melalui matrik
+perbandingan berpasangan. Matrik perbandingan berpasangan ini dilakukan antara
+alternatif dengan setiap sub-kriteria. Hasilnya dalam Tabel 11-22.
+Tabel 11
+Priority vector New Vector NV/PV
+PI/TD M1 M2 M3 M4 M5 M6 M7
+(PV) (NV)
+M1 1 𝑀 𝑀 𝑀 𝑀 𝑀 𝑀 0.175 … …
+12 13 14 15 16 17
+1 … …
+M2 1 𝑀 𝑀 𝑀 𝑀 𝑀 0.104
+𝑀 23 24 25 26 27
+12
+1 1 … …
+M3 1 𝑀 𝑀 𝑀 𝑀 0.140
+𝑀 𝑀 34 35 36 37
+13 23
+1 1 1 … …
+M4 1 𝑀 𝑀 𝑀 0.126
+𝑀 𝑀 𝑀 45 46 47
+14 24 34
+1 1 1 1 … …
+M5 1 𝑀 𝑀 0.323
+𝑀 𝑀 𝑀 𝑀 56 57
+15 25 35 45
+1 1 1 1 1 … …
+M6 1 𝑀 0.080
+𝑀 𝑀 𝑀 𝑀 𝑀 67
+16 26 36 46 56
+1 1 1 1 1 1 … …
+M7 1 0.051
+𝑀 𝑀 𝑀 𝑀 𝑀 𝑀
+17 27 37 47 57 67
+Maximum eigenvalue (𝜆𝑚𝑎𝑥) 7.5
+CI 0.083
+RI 1.32
+CR 0.063
+
+
+--- Halaman 8 ---
+Tabel 12
+Priority vector New Vector NV/PV
+PI/PC M1 M2 M3 M4 M5 M6 M7
+(PV) (NV)
+M1 1 𝑀 𝑀 𝑀 𝑀 𝑀 𝑀 0.215 … …
+12 13 14 15 16 17
+1 … …
+M2 1 𝑀 𝑀 𝑀 𝑀 𝑀 0.081
+𝑀 23 24 25 26 27
+12
+1 1 … …
+M3 1 𝑀 𝑀 𝑀 𝑀 0.145
+𝑀 𝑀 34 35 36 37
+13 23
+1 1 1 … …
+M4 1 𝑀 𝑀 𝑀 0.044
+𝑀 𝑀 𝑀 45 46 47
+14 24 34
+1 1 1 1 … …
+M5 1 𝑀 𝑀 0.201
+𝑀 𝑀 𝑀 𝑀 56 57
+15 25 35 45
+1 1 1 1 1 … …
+M6 1 𝑀 0.162
+𝑀 𝑀 𝑀 𝑀 𝑀 67
+16 26 36 46 56
+1 1 1 1 1 1 … …
+M7 1 0.152
+𝑀 𝑀 𝑀 𝑀 𝑀 𝑀
+17 27 37 47 57 67
+Maximum eigenvalue (𝜆𝑚𝑎𝑥) 7.638
+CI 0.106
+RI 1.32
+CR 0.081
+Tabel 13
+Priority vector New Vector NV/PV
+PI/GR M1 M2 M3 M4 M5 M6 M7
+(PV) (NV)
+M1 1 𝑀 𝑀 𝑀 𝑀 𝑀 𝑀 0.093 … …
+12 13 14 15 16 17
+1 … …
+M2 1 𝑀 𝑀 𝑀 𝑀 𝑀 0.074
+𝑀 23 24 25 26 27
+12
+1 1 … …
+M3 1 𝑀 𝑀 𝑀 𝑀 0.066
+𝑀 𝑀 34 35 36 37
+13 23
+1 1 1 … …
+M4 1 𝑀 𝑀 𝑀 0.070
+𝑀 𝑀 𝑀 45 46 47
+14 24 34
+1 1 1 1 … …
+M5 1 𝑀 𝑀 0.420
+𝑀 𝑀 𝑀 𝑀 56 57
+15 25 35 45
+1 1 1 1 1 … …
+M6 1 𝑀 0.074
+𝑀 𝑀 𝑀 𝑀 𝑀 67
+16 26 36 46 56
+1 1 1 1 1 1 … …
+M7 1 0.204
+𝑀 𝑀 𝑀 𝑀 𝑀 𝑀
+17 27 37 47 57 67
+Maximum eigenvalue (𝜆𝑚𝑎𝑥) 7.172
+CI 0.029
+RI 1.32
+CR 0.022
+
+
+--- Halaman 9 ---
+Tabel 14
+Priority vector New Vector NV/PV
+PI/CO M1 M2 M3 M4 M5 M6 M7
+(PV) (NV)
+M1 1 𝑀 𝑀 𝑀 𝑀 𝑀 𝑀 0.17 … …
+12 13 14 15 16 17
+1 … …
+M2 1 𝑀 𝑀 𝑀 𝑀 𝑀 0.290
+𝑀 23 24 25 26 27
+12
+1 1 … …
+M3 1 𝑀 𝑀 𝑀 𝑀 0.140
+𝑀 𝑀 34 35 36 37
+13 23
+1 1 1 … …
+M4 1 𝑀 𝑀 𝑀 0.127
+𝑀 𝑀 𝑀 45 46 47
+14 24 34
+1 1 1 1 … …
+M5 1 𝑀 𝑀 0.050
+𝑀 𝑀 𝑀 𝑀 56 57
+15 25 35 45
+1 1 1 1 1 … …
+M6 1 𝑀 0.167
+𝑀 𝑀 𝑀 𝑀 𝑀 67
+16 26 36 46 56
+1 1 1 1 1 1 … …
+M7 1 0.056
+𝑀 𝑀 𝑀 𝑀 𝑀 𝑀
+17 27 37 47 57 67
+Maximum eigenvalue (𝜆𝑚𝑎𝑥) 7.315
+CI 0.052
+RI 1.32
+CR 0.040
+Tabel 15
+Priority vector New Vector NV/PV
+PI/TR M1 M2 M3 M4 M5 M6 M7
+(PV) (NV)
+M1 1 𝑀 𝑀 𝑀 𝑀 𝑀 𝑀 0.112 … …
+12 13 14 15 16 17
+1 … …
+M2 1 𝑀 𝑀 𝑀 𝑀 𝑀 0.061
+𝑀 23 24 25 26 27
+12
+1 1 … …
+M3 1 𝑀 𝑀 𝑀 𝑀 0.118
+𝑀 𝑀 34 35 36 37
+13 23
+1 1 1 … …
+M4 1 𝑀 𝑀 𝑀 0.061
+𝑀 𝑀 𝑀 45 46 47
+14 24 34
+1 1 1 1 … …
+M5 1 𝑀 𝑀 0.311
+𝑀 𝑀 𝑀 𝑀 56 57
+15 25 35 45
+1 1 1 1 1 … …
+M6 1 𝑀 0.084
+𝑀 𝑀 𝑀 𝑀 𝑀 67
+16 26 36 46 56
+1 1 1 1 1 1 … …
+M7 1 0.253
+𝑀 𝑀 𝑀 𝑀 𝑀 𝑀
+17 27 37 47 57 67
+Maximum eigenvalue (𝜆𝑚𝑎𝑥) 7.307
+CI 0.051
+RI 1.32
+CR 0.039
+
+
+--- Halaman 10 ---
+Tabel 16
+Priority vector New Vector NV/PV
+OS/TE M1 M2 M3 M4 M5 M6 M7
+(PV) (NV)
+M1 1 𝑀 𝑀 𝑀 𝑀 𝑀 𝑀 0.144 … …
+12 13 14 15 16 17
+1 … …
+M2 1 𝑀 𝑀 𝑀 𝑀 𝑀 0.055
+𝑀 23 24 25 26 27
+12
+1 1 … …
+M3 1 𝑀 𝑀 𝑀 𝑀 0.092
+𝑀 𝑀 34 35 36 37
+13 23
+1 1 1 … …
+M4 1 𝑀 𝑀 𝑀 0.062
+𝑀 𝑀 𝑀 45 46 47
+14 24 34
+1 1 1 1 … …
+M5 1 𝑀 𝑀 0.269
+𝑀 𝑀 𝑀 𝑀 56 57
+15 25 35 45
+1 1 1 1 1 … …
+M6 1 𝑀 0.147
+𝑀 𝑀 𝑀 𝑀 𝑀 67
+16 26 36 46 56
+1 1 1 1 1 1 … …
+M7 1 0.230
+𝑀 𝑀 𝑀 𝑀 𝑀 𝑀
+17 27 37 47 57 67
+Maximum eigenvalue (𝜆𝑚𝑎𝑥) 7.617
+CI 0.103
+RI 1.32
+CR 0.078
+Tabel 17
+Priority vector New Vector NV/PV
+OS/KN M1 M2 M3 M4 M5 M6 M7
+(PV) (NV)
+M1 1 𝑀 𝑀 𝑀 𝑀 𝑀 𝑀 0.189 … …
+12 13 14 15 16 17
+1 … …
+M2 1 𝑀 𝑀 𝑀 𝑀 𝑀 0.058
+𝑀 23 24 25 26 27
+12
+1 1 … …
+M3 1 𝑀 𝑀 𝑀 𝑀 0.174
+𝑀 𝑀 34 35 36 37
+13 23
+1 1 1 … …
+M4 1 𝑀 𝑀 𝑀 0.055
+𝑀 𝑀 𝑀 45 46 47
+14 24 34
+1 1 1 1 … …
+M5 1 𝑀 𝑀 0.174
+𝑀 𝑀 𝑀 𝑀 56 57
+15 25 35 45
+1 1 1 1 1 … …
+M6 1 𝑀 0.174
+𝑀 𝑀 𝑀 𝑀 𝑀 67
+16 26 36 46 56
+1 1 1 1 1 1 … …
+M7 1 0.174
+𝑀 𝑀 𝑀 𝑀 𝑀 𝑀
+17 27 37 47 57 67
+Maximum eigenvalue (𝜆𝑚𝑎𝑥) 7.027
+CI 0.005
+RI 1.32
+CR 0.003
+
+
+--- Halaman 11 ---
+Tabel 18
+Priority vector New Vector NV/PV
+FE/VE M1 M2 M3 M4 M5 M6 M7
+(PV) (NV)
+M1 1 𝑀 𝑀 𝑀 𝑀 𝑀 𝑀 0.126 … …
+12 13 14 15 16 17
+1 … …
+M2 1 𝑀 𝑀 𝑀 𝑀 𝑀 0.229
+𝑀 23 24 25 26 27
+12
+1 1 … …
+M3 1 𝑀 𝑀 𝑀 𝑀 0.126
+𝑀 𝑀 34 35 36 37
+13 23
+1 1 1 … …
+M4 1 𝑀 𝑀 𝑀 0.229
+𝑀 𝑀 𝑀 45 46 47
+14 24 34
+1 1 1 1 … …
+M5 1 𝑀 𝑀 0.051
+𝑀 𝑀 𝑀 𝑀 56 57
+15 25 35 45
+1 1 1 1 1 … …
+M6 1 𝑀 0.169
+𝑀 𝑀 𝑀 𝑀 𝑀 67
+16 26 36 46 56
+1 1 1 1 1 1 … …
+M7 1 0.072
+𝑀 𝑀 𝑀 𝑀 𝑀 𝑀
+17 27 37 47 57 67
+Maximum eigenvalue (𝜆𝑚𝑎𝑥) 7.436
+CI 0.073
+RI 1.32
+CR 0.055
+Tabel 19
+Priority vector New Vector NV/PV
+FE/CO M1 M2 M3 M4 M5 M6 M7
+(PV) (NV)
+M1 1 𝑀 𝑀 𝑀 𝑀 𝑀 𝑀 0.124 … …
+12 13 14 15 16 17
+1 … …
+M2 1 𝑀 𝑀 𝑀 𝑀 𝑀 0.227
+𝑀 23 24 25 26 27
+12
+1 1 … …
+M3 1 𝑀 𝑀 𝑀 𝑀 0.124
+𝑀 𝑀 34 35 36 37
+13 23
+1 1 1 … …
+M4 1 𝑀 𝑀 𝑀 0.227
+𝑀 𝑀 𝑀 45 46 47
+14 24 34
+1 1 1 1 … …
+M5 1 𝑀 𝑀 0.047
+𝑀 𝑀 𝑀 𝑀 56 57
+15 25 35 45
+1 1 1 1 1 … …
+M6 1 𝑀 0.182
+𝑀 𝑀 𝑀 𝑀 𝑀 67
+16 26 36 46 56
+1 1 1 1 1 1 … …
+M7 1 0.070
+𝑀 𝑀 𝑀 𝑀 𝑀 𝑀
+17 27 37 47 57 67
+Maximum eigenvalue (𝜆𝑚𝑎𝑥) 7.437
+CI 0.073
+RI 1.32
+CR 0.055
+
+
+--- Halaman 12 ---
+Tabel 20
+Priority vector New Vector NV/PV
+SU M1 M2 M3 M4 M5 M6 M7
+(PV) (NV)
+M1 1 𝑀 𝑀 𝑀 𝑀 𝑀 𝑀 0.120 … …
+12 13 14 15 16 17
+1 … …
+M2 1 𝑀 𝑀 𝑀 𝑀 𝑀 0.066
+𝑀 23 24 25 26 27
+12
+1 1 … …
+M3 1 𝑀 𝑀 𝑀 𝑀 0.120
+𝑀 𝑀 34 35 36 37
+13 23
+1 1 1 … …
+M4 1 𝑀 𝑀 𝑀 0.050
+𝑀 𝑀 𝑀 45 46 47
+14 24 34
+1 1 1 1 … …
+M5 1 𝑀 𝑀 0.322
+𝑀 𝑀 𝑀 𝑀 56 57
+15 25 35 45
+1 1 1 1 1 … …
+M6 1 𝑀 0.100
+𝑀 𝑀 𝑀 𝑀 𝑀 67
+16 26 36 46 56
+1 1 1 1 1 1 … …
+M7 1 0.223
+𝑀 𝑀 𝑀 𝑀 𝑀 𝑀
+17 27 37 47 57 67
+Maximum eigenvalue (𝜆𝑚𝑎𝑥) 7.388
+CI 0.065
+RI 1.32
+CR 0.049
+Tabel 21
+Priority vector New Vector NV/PV
+TI/LT M1 M2 M3 M4 M5 M6 M7
+(PV) (NV)
+M1 1 𝑀 𝑀 𝑀 𝑀 𝑀 𝑀 0.262 … …
+12 13 14 15 16 17
+1 … …
+M2 1 𝑀 𝑀 𝑀 𝑀 𝑀 0.191
+𝑀 23 24 25 26 27
+12
+1 1 … …
+M3 1 𝑀 𝑀 𝑀 𝑀 0.144
+𝑀 𝑀 34 35 36 37
+13 23
+1 1 1 … …
+M4 1 𝑀 𝑀 𝑀 0.093
+𝑀 𝑀 𝑀 45 46 47
+14 24 34
+1 1 1 1 … …
+M5 1 𝑀 𝑀 0.045
+𝑀 𝑀 𝑀 𝑀 56 57
+15 25 35 45
+1 1 1 1 1 … …
+M6 1 𝑀 0.198
+𝑀 𝑀 𝑀 𝑀 𝑀 67
+16 26 36 46 56
+1 1 1 1 1 1 … …
+M7 1 0.068
+𝑀 𝑀 𝑀 𝑀 𝑀 𝑀
+17 27 37 47 57 67
+Maximum eigenvalue (𝜆𝑚𝑎𝑥) 7.654
+CI 0.109
+RI 1.32
+CR 0.083
+
+
+--- Halaman 13 ---
+Tabel 22
+Priority vector New Vector NV/PV
+TI/MN M1 M2 M3 M4 M5 M6 M7
+(PV) (NV)
+M1 1 𝑀 𝑀 𝑀 𝑀 𝑀 𝑀 0.195 … …
+12 13 14 15 16 17
+1 … …
+M2 1 𝑀 𝑀 𝑀 𝑀 𝑀 0.316
+𝑀 23 24 25 26 27
+12
+1 1 … …
+M3 1 𝑀 𝑀 𝑀 𝑀 0.125
+𝑀 𝑀 34 35 36 37
+13 23
+1 1 1 … …
+M4 1 𝑀 𝑀 𝑀 0.101
+𝑀 𝑀 𝑀 45 46 47
+14 24 34
+1 1 1 1 … …
+M5 1 𝑀 𝑀 0.034
+𝑀 𝑀 𝑀 𝑀 56 57
+15 25 35 45
+1 1 1 1 1 … …
+M6 1 𝑀 0.165
+𝑀 𝑀 𝑀 𝑀 𝑀 67
+16 26 36 46 56
+1 1 1 1 1 1 … …
+M7 1 0.065
+𝑀 𝑀 𝑀 𝑀 𝑀 𝑀
+17 27 37 47 57 67
+Maximum eigenvalue (𝜆𝑚𝑎𝑥) 7.490
+CI 0.082
+RI 1.32
+CR 0.062
+Rangkuman konsistensi tes alternatif terhadap sub kriteria disajikan Tabel 23
+Tabel 23. Konsistensi tes untuk alternatif.
+
+
+--- Halaman 14 ---
+Selanjutnya, berdasar langkah pertama hingga kelima, dapat dirangkum priority vector
+untuk kriteria, sub kriteria dan alternatif adalah seperti tabel 24.
+Tabel 24. Priority vector untuk kriteria, sub kriteria dan alternatif.
+Dengan cara mengalikan priority vector alternatif dengan priority vector sub kriteria.
+Contoh: 0.175(0.415) + 0.215(0.251) + 0.093(0.056) + 0.1700(0.127) + 0.112(0.151) = 0.170
+Lakukan proses yang sama untuk nilai yang lain dalam tabel.
+Akhirnya, diperoleh priority vector 7 alternatif terhadap sub kriteria seperti tabel 25.
+Tabel 25. Priority Vector 7 alternatif terhadap sub-kriteria
+
+
+--- Halaman 15 ---
+Dengan cara mengalikan priority vector alternatif dengan priority vector kriteria. Contoh:
+0.170(0.456) + 0.156(0.191) + 0.125(0.099) + 0.120(0.191) + 0.245(0.062) = 0.158.
+Seperti ditunjukkan tabel 26.
+Tabel 26. Priority Vector alternatif terhadap kriteria
+Terakhir, hasil seleksi ditunjukkan Tabel 27.
+Tabel 27. Hasil seleksi
+No Best Selection value
+1 M5 0.236 23.6%
+2 M1 0.158 15.8%
+3 M7 0.148 14.8%
+4 M6 0.129 12.9%
+5 M3 0.126 12.6%
+6 M2 0.111 11.1%
+7 M4 0.029 2.9%
